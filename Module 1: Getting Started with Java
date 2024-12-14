@@ -1,0 +1,354 @@
+1. Minutes to Years and Days:
+
+Write a method printYearsAndDays with parameter of type long named minutes.
+The method should not return anything (void) and it needs to calculate the years and days from the minutes parameter.
+If the parameter is less than 0, print text "Invalid Value". If long int range exceeds, print the error message as:
+Long int range exceeded.
+
+Otherwise, if the parameter is valid then it needs to print a message in the format for example:
+1440 minutes  = 0 Years  and 1 days
+
+Test case example:
+------------------------------
+case=t1
+input=
+14440
+output=
+14440 minutes  = 0 Years  and 10 days
+
+case=t2
+input=
+344556675543
+output=
+344556675543 minutes  = 655549 Years  and 84 days
+
+case=t3
+fail message="hidden test case"
+input=-13
+output=
+Invalid Value
+
+
+case=t4
+fail message="hidden test case"
+input=
+9223372036854775807 
+output=
+minutes = 17548272520652 Years and 58 days
+
+case=t5
+fail message="hidden test case"
+input=
+98765434543213435664566
+output=
+Long int range exceeded.
+
+case=t6
+fail message="hidden test case"
+input=0
+output=0 minutes = 0 Years and 0 days
+
+case=t7
+fail message="hidden test case"
+input=60
+output=60 minutes = 0 Years and 0 days
+
+case=t8
+fail message="hidden test case"
+input=1440
+output=1440 minutes = 0 Years and 1 days
+
+case=t9
+fail message="hidden test case"
+input=525600
+output=525600 minutes = 1 Years and 0 days
+
+case=t10
+fail message="hidden test case"
+input=-100
+output=Invalid Value
+
+case=t11
+fail message="hidden test case"
+input=9223372036854775806
+output=minutes = 17548272520652 Years and 58 days
+
+case=t12
+fail message="hidden test case"
+input=10000000000000000000
+output=Long int range exceeded.
+
+case=t13
+fail message="hidden test case"
+input=86400
+output=86400 minutes = 0 Years and 60 days
+
+case=t14
+fail message="hidden test case"
+input=3600
+output=3600 minutes = 0 Years and 2 days
+
+
+Start writing your code from here:
+--------------------------------------
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        try {
+            long num = in.nextLong();
+            //in.close();
+            minutestodays(num);
+        } catch (InputMismatchException e) {
+            System.out.println("Long int range exceeded.");
+        }
+    }
+
+    private static void minutestodays(long minutes) {
+        if (minutes < 0) {
+            System.out.println("Invalid Value");
+            System.exit(0);
+        } else {
+            long years = minutes / 525600;    // 365 days x 24 hours in a day x 60 minutes
+            long remminutes = minutes % 525600;
+            long days = remminutes / 1440;               //24 hrs*60
+            System.out.println(minutes + " minutes = " + years + " Years and " + days + " days");
+        }
+    }
+}
+
+2. Shared Digit:
+-------------------------
+Write a java method named SharedDigit with two parameters of type int. 
+
+Constraints: Each number should be within the range of 10 to 99.
+If one of the numbers is not within the range, the method should throw Error Message as:
+Input numbers must be between 10 and 99.
+
+The method should return true if there is a digit that appears in both numbers, such as 2 in 25 and 42; otherwise, the method should 
+print message: No Shared Digit Exists.
+
+TEST CASE EXAMPLES:
+--------------------
+case=t1
+input=67
+78
+output=Shared Digit Exists
+
+case=t2
+input=345
+13
+output=
+Exception in thread "main" java.lang.RuntimeException: Input numbers must be between 10 and 99.
+	at Solution.main(Solution.java:40)
+
+case=t3
+fail message="hidden test case"
+input=67
+89
+output=
+No Shared Digit Exists
+
+case=t4
+fail message="hidden test case"
+input=245
+890
+output=
+Exception in thread "main" java.lang.RuntimeException: Input numbers must be between 10 and 99.
+	at Solution.main(Solution.java:40)
+
+case=t5
+fail message="hidden test case"
+input=45
+65
+output=
+Shared Digit Exists
+	
+
+Start writing your code from here:
+--------------------------------------
+import java.util.*;
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a = in.nextInt();
+        int b = in.nextInt();
+        in.close();
+
+        if (isWithinRange(a) && isWithinRange(b)) {
+            boolean res = SharedDigit(a, b);
+            if (res)
+                System.out.println("Shared Digit Exists");
+            else
+                System.out.println("No Shared Digit Exists");
+        } else {
+            throw new RuntimeException("Input numbers must be between 10 and 99.");
+        }
+    }
+     public static boolean isWithinRange(int number) {
+        return number >= 10 && number <= 99;
+    }
+    public static boolean SharedDigit(int a, int b) {
+        int last1 = a % 10;
+        int first1= b / 10; 
+        int last2 = b % 10; 
+        int first2 = a / 10; 
+
+        return (last1 == first2 || first1 == last2 ||
+                 last1 == first2 || last1 == last2);
+    }
+}
+
+3. First and Last Digit Sum:
+------------------------------------
+First And Last Digit Sum
+Write a method named sumFirstAndLastDigit with one parameter of type int called number. 
+The method needs to find the first and the last digit of the parameter number passed to the method, using a loop and return the sum of the first and 
+the last digit of that number.
+If the number is negative then the method needs to throw user defined exception IllegalArgumentException with the following message.
+Input number cannot be negative. Use the try and catch block in the main function to implement the exception.
+
+Explaination:
+-------------------
+sumFirstAndLastDigit(252)→ should return 4, the first digit is 2 and the last is 2 which gives us 2+2 and the sum is 4.
+sumFirstAndLastDigit(257)→ should return 9, the first digit is 2 and the last is 7 which gives us 2+7 and the sum is 9.
+sumFirstAndLastDigit(0)→ should return 0, the first digit and the last digit is 0 since we only have 1 digit, which gives us 0+0 and the sum is 0.
+sumFirstAndLastDigit(5)→ should return 10, the first digit and the last digit is 5 since we only have 1 digit, which gives us 5+5 and the sum is 10.
+sumFirstAndLastDigit(-10) → should print Input number cannot be negative.
+sumFirstAndLastDigit(00456) -> should return 10, since zeroes in the beginning are ignored so 6+4 = 10.
+
+Test case examples:
+-------------------
+case=t1
+input=123
+output=
+Sum of first and last digits: 4
+
+case=t2
+input=00123
+output=
+Sum of first and last digits: 4
+
+case=t3
+fail message="hidden test case"
+input=
+-4567
+output=
+Error: Input number cannot be negative
+
+case=t4
+fail message="hidden test case"
+input=0
+output=
+Sum of first and last digits: 0
+
+case = t5
+fail message="hidden test case"
+input= 7
+output=
+Sum of first and last digits: 14
+
+case=t6
+fail message="hidden test case"
+input=125756
+output=
+Sum of first and last digits: 7
+
+case=t7
+fail message="hidden test case"
+input=arun
+output=
+Error: Input is not a valid integer or Max Integer value is reached.
+
+case=t8
+fail message="hidden test case"
+input=3456756453425467
+output=
+Error: Input is not a valid integer or Max Integer value is reached.
+
+
+Start writing your code from here:
+--------------------------------
+// import java.util.*;
+
+// public class Solution {
+
+//     public static int firstandlastsum(int number) {
+//         int num = number;
+
+//         if (num < 0) {
+//             throw new IllegalArgumentException("Input number cannot be negative");
+//         } else {
+//             int c=0;
+//             int num1=number;
+//             int last = num1 % 10;
+//             int count = 0;
+//             while (num > 0) 
+//             {
+//                 num = num / 10;
+//                 count++;
+//             }
+//                 //System.out.println(count);
+//             int first = (int) (number / Math.pow(10, count - 1));
+//             return first + last;
+//         }
+//     }
+
+//     public static void main(String[] args) {
+//         Scanner scanner = new Scanner(System.in);
+
+//         try {
+//             //System.out.print("Enter a number: ");
+//             int num = scanner.nextInt();
+//             int result = firstandlastsum(num);
+//             System.out.println("Sum of first and last digits: " + result);
+//         } catch (InputMismatchException e) {
+//             System.out.println("Error: Input is not a valid integer or Max Integer value is reached.");
+//         } catch (IllegalArgumentException e) {
+//             System.out.println("Error: " + e.getMessage());
+//         }
+//     }
+// }
+
+
+import java.util.*;
+
+public class Solution {
+
+    public static int firstAndLastSum(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Input number cannot be negative");
+        }
+
+        // Extract the last digit
+        int lastDigit = number % 10;
+
+        // Extract the first digit
+        int num = number;
+        while (num >= 10) {
+            num /= 10;
+        }
+        int firstDigit = num;
+
+        // Return the sum of the first and last digits
+        return firstDigit + lastDigit;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter a number: ");
+            int num = scanner.nextInt();
+            int result = firstAndLastSum(num);
+            System.out.println("Sum of first and last digits: " + result);
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Input is not a valid integer or Max Integer value is reached.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
