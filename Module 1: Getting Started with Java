@@ -89,7 +89,7 @@ input=3600
 output=3600 minutes = 0 Years and 2 days
 
 
-Start writing your code from here:
+PROGRAM:
 --------------------------------------
 import java.util.*;
 
@@ -166,7 +166,7 @@ output=
 Shared Digit Exists
 	
 
-Start writing your code from here:
+PROGRAM:
 --------------------------------------
 import java.util.*;
 public class Solution {
@@ -268,7 +268,7 @@ output=
 Error: Input is not a valid integer or Max Integer value is reached.
 
 
-Start writing your code from here:
+PROGRAM:
 --------------------------------
 // import java.util.*;
 
@@ -352,3 +352,719 @@ public class Solution {
 }
 
 
+4. Largest Prime:
+--------------------------------
+Write a method named LargestPrime with one parameter of type int named number. 
+
+Implement the following error Handling conditions through Exception Handling InputMismatchException:
+
+1. If the number is < 0 print: Invalid Input: Please enter a non-negative number.
+2. If the number is 0 or 1 print: Invalid Input: 0 & 1 Neither a Prime Nor a Composite numbers.
+3. If the number is not an integer or exceeds the range of integer values print the message:
+                 Invalid Input: Please enter a valid integer.
+
+Note: There should be a single catch block to handle all the above errors.
+
+Explaination:
+-----------------
+LargestPrime(21); should return 7 since 7 is the largest prime (3 * 7 = 21)
+LargestPrime(217); should return 31 since 31 is the largest prime (7 * 31 = 217)
+LargestPrime(45); should return 5 since 5 is the largest prime (3 * 3 * 5 = 45)
+
+Test cases:
+-----------------
+case=t1
+input=45
+output=The Largest Prime Factor of 45 is: 5
+
+case=t2
+input=567
+output=The Largest Prime Factor of 567 is: 7
+
+case=t3
+fail message="hidden test case"
+input=-78
+output=
+Invalid Input: Please enter a non-negative number.
+
+case=t4
+fail message="hidden test case"
+input=219
+output=The Largest Prime Factor of 219 is: 73
+
+case=t5
+fail message="hidden test case"
+input=arun
+output=
+Invalid Input: Please enter a valid integer.
+
+case=t6
+fail message="hidden test case"
+input=35465768796543
+output=
+Invalid Input: Please enter a valid integer.
+
+case=t7
+fail message="hidden test case"
+input=456
+output=The Largest Prime Factor of 456 is: 19
+
+case=t8
+fail message="hidden test case"
+input=Arun777
+output=
+Invalid Input: Please enter a valid integer.
+
+case=t9
+fail message="hidden test case"
+input=0
+output=
+Invalid Input: 0 & 1 Neither a Prime Nor a Composite numbers.
+
+case=t10
+fail message="hidden test case"
+input=1
+output=
+Invalid Input: 0 & 1 Neither a Prime Nor a Composite numbers
+
+PROGRAM:
+-----------------------------------
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+  
+        try {
+            if (!in.hasNextInt()) {
+                throw new InputMismatchException("Please enter a valid integer.");
+            }
+            int number = in.nextInt();
+            if (number < 0) {
+                throw new InputMismatchException("Please enter a non-negative number.");
+            } else if (number == 0 || number == 1) {
+                throw new InputMismatchException("0 & 1 Neither a Prime Nor a Composite numbers");
+            } 
+            LargestPrime(number);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid Input: " + e.getMessage());
+        }
+    }
+
+    public static void LargestPrime(int number) {
+  
+         int i;
+        long num = number;
+        for (i = 2; i <= num; i++)
+        {
+            if (num%i == 0)
+            {
+                num = num / i;
+                i--;
+            }
+        }
+
+        System.out.println("The Largest Prime Factor of " + number + " is: " + i);
+    }
+        
+        
+        /*public static void LargestPrime(int number) {
+   
+        int num = number;
+        int maxPrime = -1;
+        while (number % 2 == 0) {                  //to check if num is div by 2
+            maxPrime = 2;
+            number >>= 1;
+        }
+
+        for (int i = 3; i <= Math.sqrt(number); i += 2) {         //to check for odd primes
+            while (number % i == 0) {
+                maxPrime = i;
+                number/= i;
+            }
+        }
+
+        if (number > 2) {           //if the remaining numb itself is a prime number fr example 29
+            maxPrime = number;
+        }
+
+        System.out.println("The Largest Prime Factor of " + num + " is: " + maxPrime);
+    }*/
+}
+
+
+5. Fibanacci Series:
+---------------------------------
+Generate Fibanacci series using dynamic programming:
+--------------------------------------------------------------
+Dynamic programming is a technique that breaks the problems into sub-problems, 
+and saves the result for future purposes so that we do not need to compute the result again. 
+The subproblems are optimized to optimize the overall solution.
+The main use of dynamic programming is to solve optimization problems.
+
+Test case examples:
+-----------------
+case=t1
+input=5
+output=Fibonacci sequence with 5 terms: 0 1 1 2 3 
+
+case=t2
+input=20
+output=Fibonacci sequence with 20 terms: 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181
+
+case=t3
+fail message="hidden test case"
+input=15
+output=Fibonacci sequence with 15 terms: 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+
+case=t4
+fail message="hidden test case"
+input=10
+output=Fibonacci sequence with 10 terms: 0 1 1 2 3 5 8 13 21 34
+
+case=t5
+fail message="hidden test case"
+input=1
+output=Fibonacci sequence with 1 terms: 0
+
+PROGRAM:
+------------------------------
+import java.util.Scanner;
+
+public class Solution {
+    static int fib(int n) {
+        int f[] = new int[n+2];
+        int i;
+        f[0] = 0;
+        f[1] = 1;
+        for (i = 2; i <= n; i++) {
+            f[i] = f[i - 1] + f[i - 2];
+        }
+        return f[n];
+    }
+
+    public static void main(String args[]) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        scanner.close();
+        System.out.print("Fibonacci sequence with " + N + " terms: ");
+        for (int i = 0; i < N; i++) {
+            System.out.print(fib(i) + " ");
+        }
+    }
+}
+
+
+
+6. Big Bag Small Bag Problem:
+----------------------------
+Write a method named canPack with three parameters of type int named bigCount, smallCount, and goal. 
+The parameter bigCount represents the count of big flour bags (5 kilos each).
+The parameter smallCount represents the count of small flour bags (1 kilo each).
+The parameter goal represents the goal amount of kilos of flour needed to assemble a package.
+Therefore, the sum of the kilos of bigCount and smallCount must be at least equal to the value of goal. 
+The method should return true if it is possible to make a package with goal kilos of flour.
+If the sum is greater than goal, ensure that only full bags are used towards the goal amount. 
+For example, if goal = 9, bigCount = 2, and smallCount = 0, the method should return false since each big bag is 5 kilos and cannot be divided. However, 
+if goal = 9, bigCount = 1, and smallCount = 5, the method should return true because of 1 full bigCount bag and 4 full smallCount bags equal goal, 
+and it's okay if there are additional bags left over.
+
+Note: If any of the parameters are negative, Print error message:"Input numbers can not be negative".
+
+Explaination:
+----------------
+canPack (1, 0, 4): should return false since bigCount is 1 (5 kilos) and goal is 4 kilos.
+canPack (1, 0, 5): should return true since bigCount is 1 (5 kilos) and goal is 5 kilos.
+canPack (2, 8, 12): should return true since bigCount is 2 (10 kilos) and smallCount is 8 (small bags of 1 kilo) and goal is 12 kilos, 
+and we have 1 bag left which is ok as mentioned above.
+canPack (2, 2, 11): should return true since bigCount is 2 (big bags 5 kilos each) and smallCount is 2 (small bags of 1 kilo), makes in total 12 kilos and goal is 11 kilos. 
+canPack (-3, 2, 12): should return false since bigCount is negative.
+
+Test Case Examples:
+-----------------------
+case=t1
+input=2 0 9
+output=Its not possible to make a package
+
+case=t2
+input=1 5 9
+output=Its Possible to make a package of 2 bags w.r.t Goal Kilos
+
+case=t3
+fail message="hidden test case"
+input=8 2 12
+output=Its Possible to make a package of 2 bags w.r.t Goal Kilos
+
+case=t4
+fail message="hidden test case"
+input=-3 2 12
+output=Input numbers can not be negative
+
+case=t5
+fail message="hidden test case"
+input=0 5 4
+output=Its Possible to make a package of 2 bags w.r.t Goal Kilos
+
+case=t6
+fail message="hidden test case"
+input=10 2 70
+output=Its not possible to make a package
+
+PROGRAM:
+---------------------------
+import java.util.*;
+
+public class Solution {
+
+    public static boolean canPack(int bigCount, int smallCount, int goal) {
+        if (bigCount < 0 || smallCount < 0 || goal < 0) {
+            System.out.println("Input numbers can not be negative");
+            System.exit(0);
+        }
+        
+        int totalWeight = (bigCount * 5) + smallCount;
+        
+        if (totalWeight >= goal) 
+        {
+            if (goal % 5 <= smallCount) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args)
+    {
+        int a, b, c;
+        Scanner in = new Scanner(System.in);
+        a = in.nextInt();
+        b = in.nextInt();
+        c = in.nextInt();
+        
+        boolean result = canPack(a, b, c);
+        if (result) {
+            System.out.println("Its Possible to make a package of 2 bags w.r.t Goal Kilos");
+        } else {
+            System.out.println("Its not possible to make a package");
+        }
+    }
+}
+
+
+7. Criss Cross Pattern:
+--------------------------------
+Write a java program to create Criss Cross Pattern as shown in the test case below.
+
+Constraints: Read the number of Rows from user. If the number is less than 5, print error message as:
+               "Input number can't be less than 5"
+
+For each row or column, stars (*) are printed based on four conditions:
+----------------------------------
+1. First and last Row
+2. First and Last Column
+3. When Rownumber==ColumnNumber
+4. When the rownumber and columnnumber sum is equal to the totalelements+1 
+
+//Use the Given Class Structure and implement the method pattern. Access the ErrorMessage String from the pattern method.
+
+Sample Test Cases:
+----------------------
+case=t1
+input=5
+output=
+*****
+** **
+* * *
+** **
+*****
+
+case=t2
+input=10
+output=
+**********
+**      **
+* *    * *
+*  *  *  *
+*   **   *
+*   **   *
+*  *  *  *
+* *    * *
+**      **
+**********
+
+case=t3
+fail message="hidden test case"
+input=
+15
+output=
+***************
+**           **
+* *         * *
+*  *       *  *
+*   *     *   *
+*    *   *    *
+*     * *     *
+*      *      *
+*     * *     *
+*    *   *    *
+*   *     *   *
+*  *       *  *
+* *         * *
+**           **
+***************
+
+
+case=t4
+fail message="hidden test case"
+input=
+20
+output=
+********************
+**                **
+* *              * *
+*  *            *  *
+*   *          *   *
+*    *        *    *
+*     *      *     *
+*      *    *      *
+*       *  *       *
+*        **        *
+*        **        *
+*       *  *       *
+*      *    *      *
+*     *      *     *
+*    *        *    *
+*   *          *   *
+*  *            *  *
+* *              * *
+**                **
+********************
+
+case=t5
+fail message="hidden test case"
+input=4
+output=
+Input number can't be less than 5
+
+PROGRAM:
+---------------------------
+import java.util.*;
+
+public class Solution {
+
+    String ErrorMessage = "Input number can't be less than 5";
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a = in.nextInt();
+        in.close();
+        pattern(a);
+    }
+
+   public static void pattern(int number)
+    {
+        Solution s = new Solution();
+        if (number < 5)
+        {
+            System.out.println(s.ErrorMessage);
+        } else {
+            for (int i = 1; i <= number; i++)
+            {
+                for (int j = 1; j <= number; j++) 
+                {
+                    if ((i == 1) || (i == number) || (j == 1) || (j == number) || (i == j) || (i + j == number + 1)) {
+                        System.out.print("*");
+                    } else {
+                       System.out.print(" ");
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+}
+
+8. Utopian Tree-II:
+-------------------------------
+The Utopian Tree goes through 2 cycles of growth every year.
+Each spring, it doubles in height. 
+Each summer, its height increases by 1 meter.
+A Utopian Tree sapling with a height of 1 meter is planted at the onset of spring. 
+How tall will the tree be after n growth cycles?
+For example, if the number of growth cycles is 5, the calculations are as follows:
+
+Period  Height
+---------------
+0  	      1         //planted at onset of spring
+1         2
+2         3
+3         6        //doubles in spring (2 cycles)
+4         7
+5         14
+
+Test cases:
+-------------------------
+case=t1
+input=5
+output=Height of tree after 5 cycles = 14 meters
+
+case=t2
+input=10
+output=Height of tree after 10 cycles = 63 meters
+
+
+case=t3
+fail message="hidden test case"
+input=13
+output=Height of tree after 13 cycles = 254 meters
+
+case=t4
+fail message="hidden test case"
+input=6
+output=
+Height of tree after 6 cycles = 15 meters
+
+PROGRAM:
+--------------------------------
+import java.util.Scanner;
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int gcycle = sc.nextInt();
+        long ht=getAnswer(gcycle);
+        System.out.print("Height of tree after " + gcycle + " cycles = "+ ht + " meters");
+        
+    }
+
+    public static long getAnswer(int n)
+    {
+        long h = 1;
+        
+        for(int i = 1 ; i <= n ; i++)
+        {
+            if(i % 2 == 0)
+                h += 1;
+            else
+                h *= 2 ;
+        }
+        
+        return h;
+    }
+}
+
+
+9. Command Line Arguments 1:
+--------------------------------------
+Write a program to accept gender ("Male" or "Female") and age from command line arguments and print the percentage of interest based on the given conditions.
+If the gender is 'Female' and age is between 1 and 58, the percentage of interest is 8.2%.
+If the gender is 'Female' and age is between 59 and 100, the percentage of interest is 9.2%.
+If the gender is 'Male' and age is between 1 and 58, the percentage of interest is 8.4%.
+If the gender is 'Male' and age is between 59 and 100, the percentage of interest is 10.5%.
+
+Note: Students need not to enter any input, values to be fetched from command line which is already given in the test cases.
+
+Test case examples:
+--------------------
+case=t1
+Program arguments = Male 68
+output=the percentage of interest is 10.5%
+
+case=t2
+Program arguments = Female 35
+output=the percentage of interest is 8.2%
+
+case=t3
+fail message="hidden test case"
+program arguments = Female 78
+output=the percentage of interest is 9.2%
+
+case=t4
+fail message="hidden test case"
+program arguments= Male 37
+output=the percentage of interest is 8.4%
+
+PROGRAM:
+-----------------------
+public class Solution {
+
+	public static void main(String[] args) {
+		int age = Integer.parseInt(args[1]);
+		
+		if(args[0].equals("Female")) {
+			if(age >= 1 && age <= 58) {
+				System.out.println("the percentage of interest is 8.2%");
+			}
+			else {
+				System.out.println("the percentage of interest is 9.2%");
+			}
+		}
+		else {
+			if(age >= 1 && age <= 58) {
+				System.out.println("the percentage of interest is 8.4%");
+			}
+			else {
+				System.out.println("the percentage of interest is 10.5%");
+			}
+		}
+	}
+
+}
+
+10. Colour Balls and Haming Distane:
+-----------------------------------------
+Akhil has many balls of white and black colors. One day, he was playing with them. 
+During the play, he arranged the balls into two rows both consisting of N number of balls. 
+These two rows of balls are given to you in the form of strings X, Y. Both these string consist of ‘W’ and ‘B’,
+where ‘W’ denotes a white colored ball and ‘B’ a black colored.
+
+Other than these two rows of balls, Akhil has an infinite supply of extra balls of each color. 
+he wants to create another row of N balls, Z in such a way that the sum of hamming distance between X and Z, 
+and hamming distance between Y and Z is maximized.
+
+Hamming Distance between two strings X and Y is defined as the number of positions where the color of balls in row X
+differs from the row Y ball at that position.
+
+e.g. hamming distance between “WBB”, “BWB” is 2, as at position 1 and 2, corresponding colors in the two strings differ..
+
+As there can be multiple such arrangements of row Z, Akhil wants you to find the lexicographically smallest arrangement 
+which will maximize the above value.
+
+Test Cases:
+-------------------------------------------
+case=t1
+input=WBWB
+WBBB
+output=BWBW
+
+case=t2
+input=BBBWBW
+BBBBBB
+output=WWWBWB
+
+
+case=t3
+fail message="hidden test case"
+input=BBBB
+WWWW
+output=BBBB
+
+case=t4
+fail message="hidden test case"
+input=WWWBWWB
+BBWBWBB
+output=BBBWBBW
+
+Explanation:
+----------------
+Hamming Distance(WBWB, BWBW) = 4
+Hamming Distance(WBBB, BWBW) = 3
+The above arrangement will maximize the hamming distance 4+3 = 7 
+You can try any other value for string Z, it will never exceed 6. Hence the best arrangement is BWBW
+
+PROGRAM:
+-----------------------------------
+import java.util.Scanner;
+public class Solution {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+			String X = sc.next();
+			String Y = sc.next();
+			System.out.println(solve(X, Y));
+		sc.close();
+	}
+	public static String solve(String X, String Y) {
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < X.length(); i++) {
+			if (X.charAt(i) == 'B' && Y.charAt(i) == 'B') {
+				result.append('W');
+			} else {
+				result.append('B');
+			}
+		}
+		return result.toString();
+	}
+}
+
+11. Sum of Array Elements with a Twist:
+---------------------------------------
+Write a program to print the sum of the elements of an array following the given below condition.
+If the array has 6 and 7 in succeeding orders, ignore the numbers between 6 and 7(ignore 6&7 as well) 
+and consider the other numbers for calculation of sum.
+
+Input Format: Enter the number of elements in array followed by the elements.
+Output Format: Sum of all the numbers between 6 and 7 in succeeding order.
+
+
+Test Case Examples:
+---------------------
+case=t1
+input=5
+1 2 3 4 5
+output=
+Sum of elements: 15
+
+case=t2
+input=7
+6 1 200 3 7 5 5
+output=
+Sum of elements: 10
+
+case=t3
+fail message="hidden test case"
+input=5
+100 6 200 300 7
+output=
+Sum of elements: 100
+
+case=t4
+fail message="hidden test case"
+input=7
+6 6 6 6 6 6 6
+output=
+Sum of elements: 0
+
+case=t5
+fail message="hidden test case"
+input=5
+6 1 2 3 7
+output=
+Sum of elements: 0
+
+case=t6
+fail message="hidden test case"
+input=7
+1 6 200 300 7 700 21
+output=
+Sum of elements: 722
+
+PROGRAM:
+--------------------
+import java.util.*;
+
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int sum=0, flag=0;
+        int[] a = new int[n];
+        for(int i=0; i<n; i++)
+        a[i] = sc.nextInt();
+        for(int i=0; i<n; i++){
+            if(a[i]==6){
+                flag=1;
+            }
+            if(flag==0)
+            sum+=a[i];
+            
+            if(a[i]==7 && flag==1){
+                flag=0;
+            }
+        }
+        System.out.println("Sum of elements: " + sum);
+    }
+}
