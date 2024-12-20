@@ -1,1 +1,666 @@
+1. Largest Power of 3:
+--------------------------------
+Write a java program to find the largest power of 3 less than the given number.
 
+Input/Output Constraints:
+----------------------------
+Input number length: 1<=length(N)<=31
+Output Result: 1<=N<3^243
+
+
+Test Case Examples:
+-------------------
+case=t1
+input=27
+output=
+The largest power of 3 less than 27 is: 9
+
+case=t2
+input=19683
+output=
+The largest power of 3 less than 19683 is: 6561
+
+case=t3
+input= 2153693963075557766310747
+output=
+The largest power of 3 less than 2153693963075557766310747 is: 717897987691852588770249
+
+case=t4
+input=617673396283947
+output=
+The largest power of 3 less than 617673396283947 is: 205891132094649
+
+case=t5
+input=1144561273430837494885949696427
+output=
+The largest power of 3 less than 1144561273430837494885949696427 is: 381520424476945831628649898809
+
+case=t6
+fail message="Hidden Case"
+input=2954312706550833698643
+output=
+The largest power of 3 less than 2954312706550833698643 is: 984770902183611232881
+
+case=t7
+input=565676575465656656
+output=
+The largest power of 3 less than 565676575465656656 is: 450283905890997363
+
+PROGRAM:
+-----------------------------------------
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Power{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // System.out.print("Enter a number: ");
+        String input = scanner.nextLine().trim(); 
+
+        BigInteger number = new BigInteger(input); 
+        BigInteger result = highestPowerOf3(number); 
+        System.out.println("The largest power of 3 less than " + input + " is: " + result);
+    }
+
+    static BigInteger highestPowerOf3(BigInteger n) {
+        BigInteger res = BigInteger.ONE; // Start with 3^0 = 1
+        BigInteger powerOfThree = BigInteger.ONE; // This will hold 3^k
+
+      
+        while (powerOfThree.compareTo(n) < 0) {
+            res = powerOfThree; 
+            powerOfThree = powerOfThree.multiply(BigInteger.valueOf(3)); 
+        }
+
+        return res; 
+    }
+}
+
+
+
+2. Hour Glass Number Pattern:
+-------------------------------------------
+Write a Java program to generate following Hour glass number pattern.
+
+Test Case Example:
+-------------------
+case=t1
+input=6
+output=
+1 2 3 4 5 6 
+ 2 3 4 5 6 
+  3 4 5 6 
+   4 5 6 
+    5 6 
+     6 
+    5 6 
+   4 5 6 
+  3 4 5 6 
+ 2 3 4 5 6 
+1 2 3 4 5 6 
+
+case=t2
+fail message="hidden case"
+input=10
+output=
+1 2 3 4 5 6 7 8 9 10 
+ 2 3 4 5 6 7 8 9 10 
+  3 4 5 6 7 8 9 10 
+   4 5 6 7 8 9 10 
+    5 6 7 8 9 10 
+     6 7 8 9 10 
+      7 8 9 10 
+       8 9 10 
+        9 10 
+         10 
+        9 10 
+       8 9 10 
+      7 8 9 10 
+     6 7 8 9 10 
+    5 6 7 8 9 10 
+   4 5 6 7 8 9 10 
+  3 4 5 6 7 8 9 10 
+ 2 3 4 5 6 7 8 9 10 
+1 2 3 4 5 6 7 8 9 10 
+
+case=t3
+input=1
+output=
+1
+
+case=t4
+input= 2
+output=
+1 2 
+ 2 
+1 2 
+
+case=t5
+fail message="hidden case"
+input=7
+output=
+1 2 3 4 5 6 7 
+ 2 3 4 5 6 7 
+  3 4 5 6 7 
+   4 5 6 7 
+    5 6 7 
+     6 7 
+      7 
+     6 7 
+    5 6 7 
+   4 5 6 7 
+  3 4 5 6 7 
+ 2 3 4 5 6 7 
+1 2 3 4 5 6 7 
+
+PROGRAM:
+------------------------------
+import java.util.*;
+public class HourGlass {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int num=sc.nextInt();
+        for(int i=1;i<=num;i++){
+            for(int k=1;k<i;k++){
+                System.out.print(" ");
+            }
+            for(int j=i;j<=num;j++){
+                System.out.print(j+" ");
+            }
+            System.out.println();
+        }
+
+        for(int i=num-1;i>=1;i--){
+            for(int k=1;k<i;k++){
+                System.out.print(" ");
+            }
+            for(int j=i;j<=num;j++){
+                System.out.print(j+" ");
+            }
+            System.out.println();
+        }
+    }
+    
+}
+
+
+3. Very Big Factorial revisited:
+---------------------------------------
+import java.util.Scanner;
+import java.math.BigInteger;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // System.out.println("Enter a non-negative integer:");
+
+        try {
+            String input = scanner.nextLine().trim();
+            int number = Integer.parseInt(input);
+
+             if (number < 0) {
+                throw new GrietException("Factorial is not defined for negative numbers.");
+            }
+
+            if (!input.matches("\\d+")) {
+                System.out.println("Special Characters and Alphabets are not allowed.");
+                return;
+            }
+
+   
+            
+            BigInteger factorial = calculateFactorial(number);
+            System.out.println("Factorial of " + number + " is:");
+            System.out.println(factorial);
+
+        } catch (GrietException e) {
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Special Characters and Alphabets are not allowed.");
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred.");
+        } finally {
+            scanner.close();
+        }
+    }
+
+    private static BigInteger calculateFactorial(int n) {
+        BigInteger result = BigInteger.ONE;
+        for (int i = 2; i <= n; i++) {
+            result = result.multiply(BigInteger.valueOf(i));
+        }
+        return result;
+    }
+}
+
+// // Custom exception
+// class GrietException extends InputMismatchException {
+//     public GrietException(String message) {
+//         super(message);
+//     }
+
+
+4. Sum of Primes in a Given Range:
+-----------------------------------------
+Calculate sum of all prime numbers in the given range. 
+
+Input: enter two integer numbers separated by space.
+
+Test Case Example:
+----------------------
+case=t1
+input= 100                                                                             
+200                                                                             
+output=Sum of prime numbers between 100 and 200: 3167 
+
+case=t2
+input=
+1 5
+output=
+Sum of prime numbers between 1 and 5: 10
+
+case=t3
+fail message="hidden case" 
+input= 
+10 20
+output=
+Sum of prime numbers between 10 and 20: 60
+
+case=t4
+fail message="hidden case"
+input=
+20 10
+output=
+Sum of prime numbers between 20 and 10: 0
+
+case=t6
+fail message="hidden case"
+input=2478 3566
+output=
+Sum of prime numbers between 2478 and 3566: 400310
+
+PROGRAM:
+-----------------------------
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int start = s.nextInt();
+        int end = s.nextInt();
+
+        int sumOfPrimes = sumOfPrimesInRange(start, end);
+
+        System.out.println("Sum of prime numbers between " + start + " and " + end + ": " + sumOfPrimes);
+    }
+
+    public static int sumOfPrimesInRange(int start, int end) {
+        boolean[] prime = new boolean[end + 1];
+        Arrays.fill(prime, true);
+        prime[0] = prime[1] = false;
+
+        for (int p = 2; p * p <= end; p++) {
+            if (prime[p]) {
+                for (int i = p * p; i <= end; i += p) {
+                    prime[i] = false;
+                }
+            }
+        }
+
+        int sum = 0;
+        for (int i = start; i <= end; i++) {
+            if (prime[i]) {
+                sum += i;
+            }
+        }
+        
+        return sum;
+    }
+}
+
+5. Triangle Number Pattern:
+-----------------------------------
+Write a java program to generate the following pattern based on number of rows as the input.
+
+Test case example
+----------------------
+case=t1
+input=6
+output=
+     1
+    121
+   12321
+  1234321
+ 123454321
+12345654321
+
+case=t2
+input=7
+output=
+      1
+     121
+    12321
+   1234321
+  123454321
+ 12345654321
+1234567654321
+
+case=t3
+input=5
+output=
+    1
+   121
+  12321
+ 1234321
+123454321
+
+case=t4
+input=10
+output=
+         1
+        121
+       12321
+      1234321
+     123454321
+    12345654321
+   1234567654321
+  123456787654321
+ 12345678987654321
+12345678910987654321
+
+case=t5
+fail message="hidden case"
+input=2
+output=
+ 1
+121
+
+PROGRAM:
+-----------------------
+import java.util.*;
+public class pattern {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int num=sc.nextInt();
+
+        for(int i=1;i<=num;i++){
+            for(int j=i;j<num;j++){
+                System.out.print(" ");
+            }
+            for(int j=1;j<=i;j++){
+                System.out.print(j);
+            }
+
+            for(int k=i-1;k>=1;k--){
+                System.out.print(k);
+            }
+            System.out.println();
+        }
+
+
+    }
+}
+
+6. Welcome Back Armastrong:
+------------------------------
+U need to implement a java method "Met" to check if the given number is Armstrong number or not.
+   
+   The Method Excepts the String Parameter as the Input.
+   
+   An Armstrong number:is a number that is the sum of its own digits each raised to the power of the number of digits. 
+                    
+Input/Output Constraint:
+--------------------------
+1<=N<10^17
+
+Output format: return true if its armstrong number, return false if its not an armstrong number. 
+                Don't print any output message in ur code.
+
+Test Case Examples:
+-----------------------
+case=t1
+input=67568
+output=67568 is not an Armstrong number.
+
+case=t2
+input=92727
+output=92727 is an Armstrong number.
+
+case=t3
+input=153               
+output=153 is an Armstrong number.
+
+case=t4
+input=9474
+output=9474 is an Armstrong number.
+
+case=t5
+input=24678050
+output=24678050 is an Armstrong number.
+
+case=t6
+fail message="hidden"
+input=28116440335967
+output=28116440335967 is an Armstrong number.
+
+case=t7
+input=35641594208964132
+output=35641594208964132 is an Armstrong number.
+
+case=t8
+input=5765676756
+output=5765676756 is not an Armstrong number.
+
+case=t9
+fail message="hidden"
+input=4338281769391370
+output=4338281769391370 is an Armstrong number.
+
+case=t10
+input=4929273885928088826
+output=4929273885928088826 is not an Armstrong number.
+
+PROGRAM:
+-----------------------------------
+import java.util.Scanner;
+import java.math.BigInteger;
+public class Main {
+    public static boolean Met(String numStr) {
+        int length = numStr.length();
+        long sum = 0;
+
+        for (int i = 0; i < length; i++) {
+            int digit = Character.getNumericValue(numStr.charAt(i));
+            sum += Math.pow(digit, length);
+        }
+
+        return sum == Long.parseLong(numStr);
+    //   return sum;
+}
+}
+
+7. Next Smallest Palindrome:
+------------------------------------
+Write a java program to find the Next smallest palindrome (nearest palindrome) number from the given number.
+
+Input/Output Constraints:
+1<=number<=10^17
+
+Test Case Example:
+-------------------
+case=t1
+input=8496395839536
+output=
+Next Smallest Palindrome: 8496395936948
+
+
+case=t2
+input=1268
+output=
+Next Smallest Palindrome: 1331
+
+
+case=t3
+input=9775577457
+output=
+Next Smallest Palindrome: 9775665779
+
+case=t4
+
+input=
+1000000000000000
+output=
+Next Smallest Palindrome: 1000000000000001
+
+case=t5
+input=1910348294294535
+output=
+Next Smallest Palindrome: 1910348338430191
+
+case=t6
+fail message="hidden case"
+input=1000303204030435
+output=
+Next Smallest Palindrome: 1000303223030001
+
+PROGRAM:
+------------------------------------
+import java.util.Scanner;
+public class Palindrome {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // System.out.print("Enter a number: ");
+        long num = scanner.nextLong();
+        long res = PalindromeChecker(num);
+
+        System.out.println("Next Smallest Palindrome: " + res);
+        scanner.close();
+    }
+    private static long PalindromeChecker(long num) {
+        while (true) {
+            num++;
+            if (isPalindrome(num)) {
+                return num;
+            }
+        }
+    }
+    private static boolean isPalindrome(long num) {
+        long originalNum = num;
+        long rev = 0;
+
+        while (num > 0) {
+            long digit = num % 10;
+            rev = rev * 10 + digit;
+            num /= 10;
+        }
+
+        return originalNum == rev;
+    }
+}
+
+8. Big Digit Sum:
+---------------------------
+Given a non-negative integer - N (may be entered as a string), print the sum of digits of the given number.
+Output Format:
+Print the sum of the digits of the given number.
+
+Constraints: 
+-------------
+input= 1 <= length(N) <= 10^3 (input can be entered as a string )
+output= result should be within integer range.
+
+Note: Print appropriate error messages if user enters any other characters apart from digits in the input.
+     As given in the test cases below. Remove if there are any extra whitespaces in input.
+
+Test case examples:
+-----------------------
+case=t1
+input=1234
+output=
+10
+
+case=t2
+fail message="hidden"
+input=5678765432456787654345676543456765434567654
+output=
+225
+
+case=t3
+input=  9999999999999999999999999999999999999999999999999999999999999999999999999999999999
+output= 738
+
+case=t4
+input=   Griet1661
+output=
+Only digits are allowed
+
+case=t5
+input=$%^&%$%^&*&%^&
+output=Special characters are not allowed
+
+case=t6
+input=2345678765432345678765432345678765432345678765434567876543234567876543234567876543456787654345676543456765434567654345676543456765434565434
+output=701
+
+case=t7
+input= 1661TrainerID
+output= Only digits are allowed
+
+case=t8
+fail message="hidden"
+input=(()(&*(&^$%&&**
+output=Special characters are not allowed
+
+case=t9
+input=@griet.co.in
+output=Special characters are not allowed
+
+case=t10
+input=Arun@1661
+output=Only digits are allowed.
+
+PROGRAM:
+--------------------------------
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+       
+        String input = scanner.nextLine().trim();
+
+        sumOfDigits(input);
+        scanner.close();
+    }
+
+    public static void sumOfDigits(String N) {
+        boolean hasAlphabet = false;
+        boolean hasSpecialChar = false;
+
+        for (char ch : N.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                hasAlphabet = true;
+                break;
+            } else if (!Character.isDigit(ch)) {
+                hasSpecialChar = true;
+                break;
+            }
+        }
+
+        if (hasAlphabet) {
+            System.out.println("Only digits are allowed");
+            return;
+        } else if (hasSpecialChar) {
+            System.out.println("Special characters are not allowed");
+            return;
+        }
+
+        int digitSum = 0;
+        for (char digit : N.toCharArray()) {
+            digitSum += Character.getNumericValue(digit);
+        }
+
+        System.out.println(digitSum);
+    }
+}
