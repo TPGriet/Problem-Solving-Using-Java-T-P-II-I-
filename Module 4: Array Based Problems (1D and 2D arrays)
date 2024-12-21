@@ -1,0 +1,516 @@
+1. Sum: Between Largest and Second Largest Element:
+--------------------------------------------------------
+Read as many elements as you want to in an arraylist once done press quit in the next line.
+And find the sum of elements between largest and second largest numbers in the given arraylist.
+
+observe all the given test cases before solving.
+
+test case examples:
+-------------------------
+case=t1
+input=5 3 2 1 4
+quit
+output=
+Sum between the largest and second-largest numbers: 6
+
+case=t2
+input=4 2 1 3 5
+quit
+output=
+Sum between the largest and second-largest numbers: 6
+
+case=t3
+fail message="hidden case"
+input=2 1 6 7 8 9 5 4 10
+quit
+output=
+Sum between the largest and second-largest numbers: 9
+
+case=t4
+fail message="hidden case"
+input=1 4 8 10
+quit
+output=
+Sum between the largest and second-largest numbers: 0
+
+case=t5
+fail message="hidden case"
+input=10
+quit
+output=
+At least two distinct numbers are required.
+
+case=t6
+fail message="hidden case"
+input=1 2 3 4 5 6 7
+quit
+output=
+Sum between the largest and second-largest numbers: 0
+
+case=t7
+fail message="hidden case"
+input=2 2 2 2 2 
+quit
+output=
+Sum between the largest and second-largest numbers: 0
+
+case=t8
+fail message="hidden case"
+input=2 3 1 2 2 2 2 2 2 4
+quit
+output=
+Sum between the largest and second-largest numbers: 13
+
+PROGRAM:
+-------------------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> numbers = new ArrayList<>();
+
+        while (sc.hasNextInt()) {
+            numbers.add(sc.nextInt());
+        }
+        if (numbers.size() < 2) {
+            System.out.println("At least two distinct numbers are required.");
+            return;
+        }
+        int Big = 0;
+        int secondBig = -1;
+
+        for (int i = 1; i < numbers.size(); i++) {
+            if (numbers.get(i) > numbers.get(Big)) {
+                secondBig = Big;
+                Big = i;
+            } else if (secondBig == -1 || numbers.get(i) > numbers.get(secondBig)) {
+                secondBig = i;
+            }
+        }
+        int sum = 0;
+
+        int k=Big<secondBig?Big:secondBig;
+     
+        for(int i=k+1;i<Big+secondBig-k;i++)
+        sum=sum+numbers.get(i);
+
+        System.out.println("Sum between the largest and second-largest numbers: " + sum);
+    }
+}
+
+
+2. Harmony in the Array:
+--------------------------------
+Given an arraylist of size n, Write a function int harmonyIndex(int[] arr, int n) that returns harmony index (if any) or -1
+if no such  index exists. 
+
+The harmony index of an array is an index such that the sum of elements at lower indexes is equal to the sum of elements at higher indexes. 
+
+Test Case example:
+---------------------
+case=t1
+input=6
+-7 1 5 2 -4 3
+output=
+Harmony Index: 3
+
+case=t2
+input=5
+3 2 5 3 2
+output=
+Harmony Index: 2
+
+case=t3
+fail message="hidden case"
+input=4
+1 2 3 0
+output=
+Harmony Index: -1
+
+case=t4
+fail message="hidden case"
+input=8
+-1 2 -1 -1 -1 1 4 -1
+output=
+Harmony Index: 6
+
+case=t5
+fail message="hidden case"
+input=7
+2 1 5 76 8 5 4
+output=
+Harmony Index: -1
+
+PROGRAM:
+-----------------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Solution {
+   public static int harmonyindex(ArrayList<Integer> arr, int n) {
+        int totalSum = 0;
+        int leftSum = 0;
+
+        for (int i = 0; i < n; i++) 
+            totalSum += arr.get(i);
+
+        for (int i = 0; i < n; i++) {
+            totalSum -= arr.get(i);
+
+            if (leftSum == totalSum)
+                return i;
+
+            leftSum += arr.get(i);
+        }
+
+        return -1;
+    }
+
+    // Driver code
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+      //  System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+
+        //System.out.println("Enter the elements of the array:");
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            arr.add(scanner.nextInt());
+        }
+        int result = harmonyindex(arr, n);
+        System.out.println("Harmony Index: " + result);
+
+        scanner.close();
+    }
+}
+
+
+3. Diagonal Sum Matrix:
+---------------------------------------
+Write a java program to find the sum of diagonal elements in a square matrix.
+
+Note: if the matrix is an Odd size matrix for example 3x3 Matrix, then don't add center element twice.
+     For example if the matrix is: 
+     1 2 3
+     4 5 6
+     7 8 9    
+     SUm of diagonal elements is 25 (1+5+9+3+7)
+
+Input/Output Constraints:
+----------------------------
+Within Integer Range.
+
+
+Test Case Examples:
+-------------------
+input=3 
+1 2 3
+4 5 6
+7 8 9
+output=
+Sum of Diagonals: 25
+
+input=4
+1 2 3 4
+5 6 7 8
+2 2 2 2 
+7 7 7 7
+output=
+Sum of Diagonals: 36
+
+PROGRAM:
+--------------------------------------
+
+
+4. Kth Smallest Element in a 2D array
+--------------------------------------
+Write a java program to find Kth Smallest element in a 2D array.
+
+Input Format: enter the number of rows and columns on each line
+              Then enter the 2D array elements
+              At last, Enter the K, which indicates the kth Smallest element to be searched.
+              
+
+Input/Output Constraints:
+----------------------------
+Within Integer Range.
+
+Test Case Examples:
+-------------------
+case=t1
+input=
+4
+3
+ 7   4   8
+ 3   5   89
+12  56   10
+14  45   100
+4
+output=
+The 4th smallest element is: 7
+
+case=t2
+input=
+2
+3
+7 6 8
+6 8 10
+3
+output=
+The 3th smallest element is: 7
+
+case=t3
+input=
+3
+4 
+1 2 3 4
+5 6 7 8 
+9 1 2 3
+6
+output=
+The 6th smallest element is: 3
+
+case=t4
+input=
+4
+3
+2423434 545 675445
+3455423 455 12344
+6786532 123 67865
+9009846 859 89884
+7
+output=
+The 7th smallest element is: 89884
+
+case=t5
+fail message="hidden case"
+input=4
+2
+1 2
+3 4
+5 6
+7 8
+4
+output=
+The 4th smallest element is: 4
+
+PROGRAM:
+-----------------------------------
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+public class kthsmallest {
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            // Read input from the user
+          //  System.out.print("Enter the number of rows: ");
+            int rows = scanner.nextInt();
+
+            //System.out.print("Enter the number of columns: ");
+            int cols = scanner.nextInt();
+
+            int[][] matrix = new int[rows][cols];
+
+           // System.out.println("Enter the elements of the 2D array:");
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    matrix[i][j] = scanner.nextInt();
+                }
+            }
+
+            //System.out.print("Enter the value of k: ");
+            int k = scanner.nextInt();
+
+            int kthSmallest = findKthSmallest(matrix, k);
+            System.out.println("The " + k + "th smallest element is: " + kthSmallest);
+        }
+
+        private static int findKthSmallest(int[][] matrix, int k) {
+            int rows = matrix.length;
+            int cols = matrix[0].length;
+
+            int[] flatArray = new int[rows * cols];
+            int index = 0;
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    flatArray[index++] = matrix[i][j];
+                }
+            }
+
+            Arrays.sort(flatArray);
+
+            return flatArray[k - 1];
+        }
+    }
+
+
+
+// basic approach
+
+// import java.util.Scanner;
+// import java.util.Arrays;
+// public class KthSmallestElement2D {
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+        
+//         System.out.println("Enter the number of rows:");
+//         int rows = sc.nextInt();
+        
+//         System.out.println("Enter the number of columns:");
+//         int columns = sc.nextInt();
+        
+//         int[][] array = new int[rows][columns];
+//         System.out.println("Enter the elements of the 2D array:");
+//         for (int i = 0; i < rows; i++) {
+//             for (int j = 0; j < columns; j++) {
+//                 array[i][j] = sc.nextInt();
+//             }
+//         }
+        
+//         System.out.println("Enter the value of k:");
+//         int k = sc.nextInt();
+
+//         int[] flatArray = new int[rows * columns];
+//         int index = 0;
+        
+//         for (int i = 0; i < rows; i++) {
+//             for (int j = 0; j < columns; j++) {
+//                 flatArray[index++] = array[i][j];
+//             }
+//         }
+//         System.out.println(Arrays.toString(flatArray));
+        
+//         for (int i = 0; i < flatArray.length; i++) {
+//             int count = 0;
+//             for (int j = 0; j < flatArray.length; j++) {
+//                 if (flatArray[j] < flatArray[i]) {
+//                     count++;
+//                 }
+//             }
+//             if (count == k - 1) {
+//                 System.out.println("The " + k + "th smallest element is: " + flatArray[i]);
+//                 break;
+//             }
+//         }
+//     }
+// }
+
+// Enter the value of k:
+// 3
+// [3, 4, 66, 34, 5, 7, 8, 77, 22]
+// The 3th smallest element is: 5
+
+5. Unique Pairs in 2D Array of Strings:
+-----------------------------------------
+Given a 2D array of strings, with each row containing a name pair,
+you have to print the number of unique name pairs up till that point.
+
+Test case example:
+-----------------------
+case=t1
+input=4
+arun ck
+virat kohi
+arun ck
+rohit sharma
+output=
+1
+2
+2
+3
+
+case=t2
+input=5
+a b
+c d
+e f
+g h
+i j
+output=
+1
+2
+3
+4
+5
+
+case=t3
+fail message="hidden case"
+input=5
+virat kohli
+rohit sharma
+ishan kishan
+virat kohli
+KL rahul
+output=
+1
+2
+3
+3
+4
+
+case=t4
+fail message="hidden case"
+input=4
+v k
+a k
+v k
+a k
+output=
+1
+2
+2
+2
+
+Explaination: for 1st row unique string is 1, 2nd row its updated to 2, third row its still 2 as the,
+string arun ck is already repeated and so on.
+
+PROGRAM:
+---------------------------------
+import java.util.*;
+public class Solution {
+    public static void main(String[]args){
+      Scanner scanner = new Scanner(System.in);
+ 
+     
+        int n = scanner.nextInt();
+        scanner.nextLine(); 
+
+        String[][] input = new String[n][2];
+
+       // System.out.println("Enter the pairs (space-separated values):");
+        for (int i = 0; i < n; i++) {
+            String line = scanner.nextLine();
+            input[i] = line.split(" ");
+        }
+      
+        uniquePairs(input);
+        scanner.close();   
+    }
+    
+public static void uniquePairs(String[][] pairs) {
+        HashSet<String> set = new HashSet<>();
+        int count = 0;
+
+        for (String[] i : pairs) {
+            String merged = i[0] + " " + i[1];
+
+            if (set.contains(merged)) {
+                System.out.println(count);
+            } else {
+                set.add(merged);
+                count++;
+                System.out.println(count);
+            }
+        }
+    }
+}
+
+
+
