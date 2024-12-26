@@ -888,4 +888,1152 @@ public class Main{
 }
 
 
+9. Find the Floor of a key in the Array:
+---------------------------------------------------
+Given a sorted array in ascending order and a value key, 
+the floor of key is the greater element in the array less than or equal to key.
+Write a java program to find floor of a given key in the sorted array.
+
+TEST CASES:
+------------------------------
+case=t1
+fail message="hidden test case"
+input=6
+1 2 3 5 6 7
+4
+output=
+The floor of 4 is: 3
+
+
+case=t2
+input=7
+1 2 3 4 4 5 7
+7
+output=The floor of 7 is: 7
+
+case=t3
+input=1
+23
+10
+output=No floor value for number 10 exists in the array
+
+case=t4
+input=6
+1 1 2 3 6 5
+0
+output=No floor value for number 0 exists in the array
+
+
+case=t5
+input=7
+1 2 3 5 7 8 10
+34
+output=The floor of 34 is: 10
+
+PROGRAM:
+--------------------------------
+import java.util.Scanner;
+
+public class Main {
+    public static int findFloor(int[] arr, int n, int key) {
+        if (key < arr[0]) {
+            return -1;
+        }
+        
+        for (int i = n - 1; i >= 0; i--) {
+            if (arr[i] <= key) {
+                return arr[i];
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+        int key = scanner.nextInt();
+        
+        int result = findFloor(arr, n, key);
+        if (result != -1) {
+            System.out.println("The floor of " + key + " is: " + result);
+        } else {
+            System.out.println("No floor value for number " + key + " exists in the array");
+        }
+        
+        scanner.close();
+    }
+}
+
+10. Find Minimum Element In the Stack
+-------------------------------------------------
+Write a java program to find minimum element in the stack.(max size 4)
+Implement menu driven program to do the same:
+1.Push 2.Pop 3.Display 4.Find Min element 5.exit.
+
+TEST CASES:
+-------------------------------
+case=t1
+fail message="hidden case"
+input=
+1
+9 
+1
+2
+1
+4
+1
+9
+3
+2
+2
+3
+4
+5
+output=
+Current stack elements are:
+9
+4
+2
+9
+Popped element is: 9
+Popped element is: 4
+Current stack elements are:
+2
+9
+Minimum element: 2
+
+case=t2
+input=2 5
+output=stack underflow
+
+case=t3
+input=1 2 1 0 1 5
+2 2 2 4 5
+output=Popped element is: 5
+Popped element is: 0
+Popped element is: 2
+Stack is empty-There is no Minimum value!!
+
+case=t4
+input=1
+4
+1
+5
+1
+0
+1
+56
+1
+3
+3
+4
+5
+output=Stack Overflow!!
+Current stack elements are:
+56
+0
+5
+4
+Minimum element: 0
+
+
+case=t5
+input=1
+2
+3
+2
+3
+4
+5
+output=
+Current stack elements are:
+2
+Popped element is: 2
+Stack is empty!!
+Stack is empty-There is no Minimum value!!
+
+PROGRAM:
+-------------------------------
+import java.util.Scanner;
+
+class Stack {
+    private int maxSize = 4;
+    private int[] stackArray = new int[maxSize];
+    private int top = -1;
+
+    public void push(int value) {
+        if (top < maxSize - 1) {
+            stackArray[++top] = value;
+       
+        } else {
+            System.out.println("Stack overflow!!");
+        }
+    }
+
+    public int pop() {
+        if (top >= 0) {
+            return stackArray[top--];
+        } else {
+            System.out.println("Stack underflow");
+            return -1;
+        }
+    }
+
+    public void display() {
+        if (top >= 0) {
+            System.out.println("Current stack elements are:");
+            for (int i = top; i >= 0; i--) {
+                System.out.println(stackArray[i]);
+            }
+        } else {
+            System.out.println("Stack is empty");
+        }
+    }
+
+    public Integer findMin() {
+        if (top < 0) {
+            System.out.println("Stack is empty-There is no Minimum Value!!");
+            return null;
+        }
+        int min = stackArray[0];
+        for (int i = 1; i <= top; i++) {
+            if (stackArray[i] < min) {
+                min = stackArray[i];
+            }
+        }
+        return min;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Stack stack = new Stack();
+        int choice;
+
+        do {
+            // System.out.println("Menu:");
+            // System.out.println("1. Push");
+            // System.out.println("2. Pop");
+            // System.out.println("3. Display");
+            // System.out.println("4. Find Min Element");
+            // System.out.println("5. Exit");
+            // System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // System.out.print("Enter value to push: ");
+                    int value = scanner.nextInt();
+                    stack.push(value);
+                    break;
+                case 2:
+                    int poppedValue = stack.pop();
+                    if (poppedValue != -1) {
+                        System.out.println("Popped element is: " + poppedValue);
+                    }
+                    break;
+                case 3:
+                    stack.display();
+                    break;
+                case 4:
+                    Integer min = stack.findMin();
+                    if (min != null) {
+                        System.out.println("Minimum element: " + min);
+                    }
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } while (choice != 5);
+
+        scanner.close();
+    }
+}
+
+//better approach search time is o(1)
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class MinStack {
+    private static final int SIZE = 4;
+    private int[] mainStack = new int[SIZE];
+    private int[] minStack = new int[SIZE];
+    private int top = -1;
+    private int minTop = -1;
+
+    public void push(int x) {
+        if (top == SIZE - 1) {
+            System.out.println("Stack Overflow!!");
+            return;
+        } else {
+            top++;
+            mainStack[top] = x;
+        }
+
+        if (minTop == -1 || x <= minStack[minTop]) {
+            minTop++;
+            minStack[minTop] = x;
+        }
+    }
+
+    public int pop() {
+        if (top == -1) {
+            System.out.println("Stack underflow");
+            return -1;
+        }
+
+        int element = mainStack[top];
+        System.out.println("Popped element is: " + element);
+        top--;
+
+        if (element == minStack[minTop]) {
+            minTop--;
+        }
+
+        return element;
+    }
+
+    public void getMin() {
+        if (minTop == -1) {
+            System.out.println("Stack is empty - There is no Minimum value!!");
+            return;
+        }
+
+        System.out.println("Minimum Element: " + minStack[minTop]);
+    }
+
+    public void show() {
+        if (top == -1) {
+            System.out.println("Stack is empty!!");
+            return;
+        }
+
+        System.out.println("Current stack elements are:");
+        for (int i = top; i >= 0; i--) {
+            System.out.println(mainStack[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        MinStack stack = new MinStack();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        while (true) {
+            System.out.println("\n1. Push the element");
+            System.out.println("2. Pop the element");
+            System.out.println("3. Show stack elements");
+            System.out.println("4. Find Minimum");
+            System.out.println("5. Exit");
+            System.out.print("Enter the choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the element to be added onto the stack: ");
+                    int value = scanner.nextInt();
+                    stack.push(value);
+                    break;
+                case 2:
+                    stack.pop();
+                    break;
+                case 3:
+                    stack.show();
+                    break;
+                case 4:
+                    stack.getMin();
+                    break;
+                case 5:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice!!");
+            }
+        }
+    }
+}
+
+
+11. Well Formed Paranthesis:
+------------------------------------
+ A bracket is considered to be any one of the following characters: (, ), {, }, [, or ]. 
+Two brackets are considered to be a well formed if the an opening bracket (i.e., (, [, or {)
+occurs to the left of a closing bracket (i.e., ), ], or }) of the exact same type.
+There are three types of matched pairs of brackets: [], {}, and ().
+A matching pair of brackets is not balanced if the set of brackets it encloses are not matched.
+For example, {[(])} is not balanced because 
+the contents in between { and } are not balanced. 
+The pair of square brackets encloses a single, unbalanced opening bracket, (, and the pair of parentheses encloses a single,
+unbalanced closing square bracket, ].
+
+Write a java program to check for well formed paranthesis.
+
+Constraint: The maximum characters that can be stored in stack is upto 10.
+
+TEST CASES:
+------------------
+case=t1
+input=(){}
+output=Well Formed Parenthesis
+
+case=t2
+input=((({})))
+output=Well Formed Parenthesis
+
+case=t3
+input={}[(]}
+output=Not Well Formed Parenthesis
+
+case=t4
+input={]}
+output=Not Well Formed Parenthesis
+
+case=t5
+input=()()()()()()()()()()()()
+output=Well Formed Parenthesis
+
+case=t6
+input=((((([[[[[[
+output=Not Well Formed Parenthesis
+
+case=t7
+fail message="hidden"
+input={()}
+output=Well Formed Parenthesis
+
+PROGRAM:
+------------------------
+import java.util.Scanner;
+
+public class Main {
+    static final int MAX_SIZE = 10;
+    char[] stack = new char[MAX_SIZE];
+    int top = -1;
+
+    void push(char ch) {
+        if (top < MAX_SIZE - 1) {
+            stack[++top] = ch;
+        }
+    }
+
+    char pop() {
+        if (top != -1) {
+            return stack[top--];
+        }
+        return '\0'; // Return null character if stack is empty
+    }
+
+  
+    boolean isWellFormed(String expression) {
+        for (char ch : expression.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                push(ch);
+            } else if (ch == ')' || ch == '}' || ch == ']') {
+                if (top==-1) {
+                    return false; // Unmatched closing bracket
+                }
+                char topChar = pop();
+                if (!isMatchingPair(topChar, ch)) {
+                    return false; // Mismatched pair
+                }
+            }
+        }
+        return top==-1; // If stack is empty, parentheses are well formed
+    }
+
+    boolean isMatchingPair(char opening, char closing) {
+        return (opening == '(' && closing == ')') || 
+               (opening == '{' && closing == '}') || 
+               (opening == '[' && closing == ']');
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // System.out.println("Enter the expression to check:");
+        String expression = scanner.nextLine();
+        Main checker = new Main();
+
+        if (checker.isWellFormed(expression)) {
+            System.out.println("Well Formed Parenthesis");
+        } else {
+            System.out.println("Not Well Formed Parenthesis");
+        }
+        scanner.close();
+    }
+}
+
+
+12. Infix to Postfix with Invalid expression cases.
+--------------------------------------------------------------
+Write a java program to convert infix expression into postfix expression.
+
+Algorithm:
+----------------
+1. First Start scanning the expression(max length 20) from left to right
+2. If the scanned character is an operand, output it, i.e. print it
+3. Else
+   3.1 If the precedence of the scanned operator is higher than the precedence of the operator in the stack.
+       (or stack is empty or has '('), then push operator in the stack.
+   3.2 Else, Pop all the operators, that have greater or equal precedence than the scanned operator. 
+       Once you pop them push this scanned operator. (If we see a opening parenthesis while popping then stop 
+       and push scanned operator in the stack)
+4. If the scanned character is an  '(', push it to the stack.
+5. If the scanned character is an  ')', pop the stack and output it until a '(' is encountered, and discard both the parenthesis.
+6. Now, we should repeat the steps 2 – 5 until the whole characters are scanned.
+7. Print output
+8. Do the pop and output (print) until stack is not empty
+
+Note: The expression should include only opening and closing braces i.e ( and ).
+      if any other brace exists in expression. print appropriate error message given in testcase.
+      Expression should be well formed expression. check the testcases given.
+      Include these constraints while developing the program along with the given algorithm.
+
+TEST CASES:
+------------------
+case=t1
+input=(a+b)*c
+output=Postfix expression is : ab+c*
+
+case=t2
+input=a+b*c/d-f+a^e
+output=Postfix expression is : abc*d/+f-ae^+
+
+case=t3
+fail message="hidden test case"
+input=(a+B-E)+{1-]
+output=Invalid Infix Expression-Different parenthesis in expression
+
+case=t4
+input=(a+b
+output=Invalid Infix Expression - missing close brace
+
+case=t5
+input=a+b)
+output=Invalid Infix Expression - missing open brace
+
+case=t6
+input=(a+b)-(c*d)
+output=Postfix expression is : ab+cd*-
+
+case=t7
+input=(a+b)-c*d)
+output=Invalid Infix Expression - missing open brace
+
+case=t8
+input=(a+b-)
+output=Invalid Infix Expression - operators and operands doesnot match
+
+case=t9
+input=(a+b}
+output=Invalid Infix Expression-Different parenthesis in expression
+
+case=t10
+fail message="hidden test case check operator and operand count"
+input=(a+b--c)
+output=Invalid Infix Expression - operators and operands doesnot match       
+
+PROGRAM:
+--------------------------------
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    static final int MAX = 20;
+    char[] stack = new char[MAX];
+    int top = -1;
+    String infix;
+    StringBuilder postfix = new StringBuilder();
+
+    public static void main(String[] args) {
+        Main converter = new Main();
+        converter.inputInfixExpression();
+    }
+
+    void inputInfixExpression() {
+        Scanner scanner = new Scanner(System.in);
+        infix = scanner.next();
+        int flag = toPostfix(infix);
+        if (flag == 1) {
+            System.out.println("Postfix expression is : " + postfix);
+        } else {
+            System.out.println("Invalid Infix Expression - operators and operands doesnot match");
+            System.exit(0);
+        }
+        scanner.close();
+    }
+
+    int toPostfix(String infix) {
+        char temp;
+        int operatorCount = 0;
+        int operandCount = 0;
+
+        for (int i = 0; i < infix.length(); i++) {
+            char ch = infix.charAt(i);
+            if (ch == '(') {
+                push(ch);
+            } else if (Character.isLetterOrDigit(ch)) {
+                operandCount++;
+                postfix.append(ch);
+            } else if (ch == '^' || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%') {
+                operatorCount++;
+                while (top != -1 && getPriority(stack[top]) >= getPriority(ch)) {
+                    postfix.append(pop());
+                }
+                push(ch);
+            } else if (ch == ')') {
+                while (top != -1 && stack[top] != '(') {
+                    postfix.append(pop());
+                }
+                if (top != -1) {
+                    temp = pop(); // pop the '('
+                } else {
+                    System.out.println("Invalid Infix Expression - missing open brace");
+                               System.exit(0);
+                }
+            } else {
+                System.out.println("Invalid Infix Expression - Different parenthesis in expression");
+                           System.exit(0);
+            }
+        }
+
+        while (top != -1) {
+            char ch = pop();
+            if (ch == '(') {
+                System.out.println("Invalid Infix Expression - missing close brace");
+                            System.exit(0);;
+            }
+            postfix.append(ch);
+        }
+
+        if (operatorCount == operandCount - 1) {
+            return 1; // valid expression
+        } else {
+            return 0; // invalid expression
+        }
+    }
+
+    void push(char element) {
+        if (top == MAX - 1) {
+            System.out.println("Stack overflow");
+        } else {
+            stack[++top] = element;
+        }
+    }
+
+    char pop() {
+        if (top == -1) {
+            System.out.println("Invalid Infix Expression - missing open brace");
+            System.exit(0);
+         
+        } 
+            return stack[top--];
+    }
+
+    int getPriority(char op) {
+        if (op == '^') return 2;
+        else if (op == '/' || op == '*' || op == '%') return 1;
+        else if (op == '+' || op == '-') return 0;
+        else return -1;
+    }
+}
+
+13. Delete Elements upto Nth Position in Queue:
+-----------------------------------------------
+Write a java program to elements upto Nth position from the queue using menu driven approach. 
+
+Assume size of the queue is 5:
+
+Menu consists of following operations:
+-------------------------------------------------
+1 Enqueue element into the end of the queue. 
+2 Dequeue the elements at the front of the queue upto given Nth Position. (enter choice and then enter Nth position)
+3 Display the elements of the queue
+4 EXIT.
+
+Use the following messages for printing approriate errors:
+"Queue Overflow!!" during enqueue
+"Queue Underflow!!" while deleting the elements.
+"Queue is Empty" while displaying the elements.
+
+Test case examples:
+---------------------
+case=t1
+input=1
+20
+1
+30
+1
+40
+3
+2
+2
+3
+4
+output=
+Enqueued(20)
+Enqueued(30)
+Enqueued(40)
+Queue is:
+20  30  40  
+Dequeued(20)
+Dequeued(30)
+Queue is:
+40  
+
+case=t2
+input=1
+20
+1
+30
+1
+40
+3
+2
+3
+3
+4
+output=
+Enqueued(20)
+Enqueued(30)
+Enqueued(40)
+Queue is:
+20  30  40  
+Dequeued(20)
+Dequeued(30)
+Dequeued(40)
+Queue is Empty
+
+case=t3
+input=5 4
+output=invalid choice!!
+
+case=t4
+input=2
+4
+output=Queue Underflow!!
+
+case=t5
+input=3
+4
+output=Queue is Empty
+
+case=t6
+fail message="hidden"
+input=
+1
+20
+1
+30
+1
+40
+1
+50
+3
+2
+2
+3
+4
+output=
+Enqueued(20)
+Enqueued(30)
+Enqueued(40)
+Enqueued(50)
+Queue is:
+20  30  40  50  
+Dequeued(20)
+Dequeued(30)
+Queue is:
+40  50
+
+PROGRAM:
+-------------------------
+import java.util.Scanner;
+
+public class Main {
+    static final int SIZE = 5;
+    int[] queue = new int[SIZE];
+    int front = -1;
+    int rear = -1;
+
+    public static void main(String[] args) {
+       Main q = new Main();
+        q.menu();
+    }
+
+    void menu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        while (true) {
+            // System.out.println("\nMenu:");
+            // System.out.println("1. Enqueue");
+            // System.out.println("2. Dequeue up to Nth Position");
+            // System.out.println("3. Display Queue");
+            // System.out.println("4. EXIT");
+            // System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // System.out.print("Enter element to enqueue: ");
+                    int element = scanner.nextInt();
+                    enqueue(element);
+                    break;
+                case 2:
+                    // System.out.print("Enter Nth position to dequeue: ");
+                    int n = scanner.nextInt();
+                    dequeue(n);
+                    break;
+                case 3:
+                    display();
+                    break;
+                case 4:
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("invalid choice!!");
+            }
+        }
+    }
+
+    void enqueue(int element) {
+        if ((rear + 1) % SIZE == front) {
+            System.out.println("Queue Overflow!!");
+            return;
+        }
+        if (front == -1) {
+            front = 0;
+        }
+        rear = (rear + 1) % SIZE;
+        queue[rear] = element;
+        System.out.println("Enqueued(" + element + ")");
+    }
+
+    void dequeue(int n) {
+        if (front == -1) {
+            System.out.println("Queue Underflow!!");
+            System.exit(0);
+        }
+        int count = 0;
+        while (count < n && front != -1) {
+            System.out.println("Dequeued(" + queue[front] + ")");
+            front = (front + 1) % SIZE;
+            count++;
+            if (front == (rear + 1) % SIZE) {
+                front = -1;  // Reset front if the queue becomes empty
+                rear = -1;   // Reset rear
+            }
+        }
+    }
+
+    void display() {
+        if (front == -1) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+        System.out.print("Queue is: ");
+        int i = front;
+        while (i != rear) {
+            System.out.print(queue[i] + "  ");
+            i = (i + 1) % SIZE;
+        }
+        System.out.print(queue[rear]);  // Print the last element
+        System.out.println();
+    }
+}
+
+14. Evaluation fo Postfix Expression:
+----------------------------------------------
+Write a java program to evaluate postfix expression.
+(consider only arithmetic operators)
+
+TEST CASES:
+------------------
+case = t1
+input = abc+-
+2 3 4
+output = -5
+
+case =t2
+input = ab+cd+*
+2 4 1 3
+output = 24
+
+case =t3
+input = abc*+d-
+2 3 1 9
+output = -4
+
+case =t4
+input = abc*
+2 3 1 
+output = invalid postfix expression
+
+case =t5
+input = abc*def+
+2 3 1 5 6 7
+output = invalid postfix expression
+
+PROGRAM:
+-------------------------------
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+        evaluatePostfix();
+    }
+
+    public static void evaluatePostfix() {
+        Scanner scanner = new Scanner(System.in);
+        Stack<Integer> stack = new Stack<>();
+        
+        String postfix = scanner.nextLine();
+
+        for (int i = 0; i < postfix.length(); i++) {
+            char ch = postfix.charAt(i);
+
+            if (isOperand(ch)) {
+                int x = scanner.nextInt();
+                stack.push(x);
+            } else if (isOperator(ch)) {
+                int a = stack.pop();
+                int b = stack.pop();
+                int c = 0;
+
+                switch (ch) {
+                    case '+':
+                        c = b + a;
+                        break;
+                    case '-':
+                        c = b - a;
+                        break;
+                    case '*':
+                        c = b * a;
+                        break;
+                    case '/':
+                        c = b / a;
+                        break;
+                    case '%':
+                        c = b % a;
+                        break;
+                    case '^':
+                        c = (int) Math.pow(b, a);
+                        break;
+                    default:
+                        System.out.println("Invalid operator");
+                        return;
+                }
+                stack.push(c);
+            }
+        }
+
+        if (stack.size() == 1) {
+            System.out.println("Output = " + stack.pop());
+        } else {
+            System.out.println("Invalid postfix expression");
+        }
+
+        scanner.close();
+    }
+
+    public static boolean isOperand(char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+    }
+
+    public static boolean isOperator(char ch) {
+        return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' || ch == '^';
+    }
+}
+
+15. Infix to Prefix Notation:
+------------------------------------------
+ Write a java program to convert infix expression to prefix expression.
+Infix: (a / b + c) - ( d + e * f) can be written as:
+
+Step 1 – (/ab + c) - ( d + *ef)
+Step 2 – Consider /ab and *ef as separate operand x and y
+the innermost bracket now looks like (x + c) - (d + y)
+Applying prefix it looks like – (+xc - +dy)replacing x and y here (+/abc - +d*ef)
+Step 3 – Considering +/abc and+d*ef as separate operand z and w, the final bracket looks like – (z - w)the result would be -zw
+           replacing z and w:
+           Infix expression is = -+/abc+d*ef
+
+ALgorithm to convert infix to prefix expression:
+------------------------------------------------
+Step 1: Reverse the infix string.
+Step 2: Obtain the postfix expression of the infix expression Step 1.
+Step 3: Reverse the postfix expression to get the prefix expression
+
+TEST CASES:
+------------------
+case=t1
+input=(a+b)*c
+output=Prefix expression is : *+abc
+
+case=t2
+input=a+b*c/d-f+a^e
+output=Prefix expression is: +a-*b/cd+f^ae
+
+
+case=t3
+fail message="hidden test case"
+input=(a+B-E)+{1-]
+output=Invalid Infix Expression-Different parenthesis in expression
+
+case=t4
+input=(a+b
+output=Invalid Infix Expression - missing close parenthesis
+
+case=t5
+input=a+b)
+output=Invalid Infix Expression - missing open parenthesis
+
+case=t6
+input=(a+b)-(c*d)
+output=Prefix expression is : -+ab*cd 
+
+case=t7
+input=(a+b)-c*d)
+output=Invalid Infix Expression - missing open parenthesis
+
+case=t8
+input=(a+b-)
+output=Invalid Infix Expression - operators and operands do not match
+
+case=t9
+input=(a+b}
+output=Invalid Infix Expression - Different parenthesis in expression
+
+case=t10
+fail message="hidden test case check operator and operand count"
+input=(a+b--c)
+output=Invalid Infix Expression - operators and operands do not match 
+
+case=t11
+input=(a/b+c)-(d+e*f)
+output=Prefix expression is: -+/abc+d*ef
+
+PROGRAM:
+---------------------------------
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    static final int MAX = 20;
+    static char[] stack = new char[MAX];
+    static int top = -1;
+    static String infix;
+    static StringBuilder prefix = new StringBuilder();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the infix expression: ");
+        infix = scanner.next();
+
+        reverseString(infix);
+        int flag = toPrefix(infix);
+
+        if (flag == 1) {
+            reverseString(prefix.toString());
+            System.out.println("Prefix expression is: " + prefix);
+        } else {
+            System.out.println("Invalid Infix Expression - operators and operands do not match");
+            System.exit(0);
+        }
+        scanner.close();
+    }
+
+    static int toPrefix(String infix) {
+        char ch;
+        int operatorCount = 0;
+        int operandCount = 0;
+
+        for (int i = 0; i < infix.length(); i++) {
+            ch = infix.charAt(i);
+            if (ch == ')') {
+                push(ch);
+            } else if (Character.isLetterOrDigit(ch)) {
+                operandCount++;
+                prefix.append(ch);
+            } else if (ch == '^' || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%') {
+                operatorCount++;
+                while (top != -1 && getPriority(stack[top]) >= getPriority(ch)) {
+                    prefix.append(pop());
+                }
+                push(ch);
+            } else if (ch == '(') {
+                while (top != -1 && stack[top] != ')') {
+                    prefix.append(pop());
+                }
+                if (top != -1) {
+                    pop(); // Remove the ')'
+                } else {
+                    System.out.println("Invalid Infix Expression - missing close parenthesis");
+                    System.exit(0); // Invalid expression due to unmatched parentheses
+                }
+            } else {
+                System.out.println("Invalid Infix Expression - Different parenthesis in expression");
+                 System.exit(0);
+            }
+        }
+
+        while (top != -1) {
+            ch = pop();
+            if (ch == ')') {
+                System.out.println("Invalid Infix Expression - Missing open parenthesis");
+               System.exit(0);
+            }
+            prefix.append(ch);
+        }
+
+        if (operatorCount == operandCount - 1) {
+            return 1; // Valid expression
+        } else {
+            return 0; // Invalid expression
+        }
+    }
+
+    static void push(char element) {
+        if (top == MAX - 1) {
+            System.out.println("Stack overflow");
+        } else {
+            stack[++top] = element;
+        }
+    }
+
+    static char pop() {
+        if (top == -1) {
+            System.out.println("Invalid Infix Expression - Missing close parenthesis");
+            System.exit(0);
+        } 
+            return stack[top--];
+        
+    }
+
+    static int getPriority(char op) {
+        if (op == '^') return 2;
+        if (op == '/' || op == '*' || op == '%') return 1;
+        if (op == '+' || op == '-') return 0;
+        return -1;
+    }
+
+    static void reverseString(String str) {
+        StringBuilder reversed = new StringBuilder(str).reverse();
+        if (str.equals(infix)) {
+            infix = reversed.toString();
+        } else {
+            prefix = reversed;
+        }
+    }
+}
+
 
