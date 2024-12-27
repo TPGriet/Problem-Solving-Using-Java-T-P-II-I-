@@ -767,3 +767,721 @@ public static void main(String[] args) {
     }
 }
 
+6. Account and Interest - Method Overriding:
+--------------------------------------------------
+Given an existing Account Class, you need to implement the concept of method overriding,
+by accessing the method calculateInterest() from Account class to SavingsAccount Class
+and also to FixedDepositAccount class.
+
+and then calculate the Interest rates form both accounts based on following conditions:
+For Savings Bank account 7% interest on the account balance.
+For Fixed Deposit account 9% interest on the account balance.
+
+U need to initialize the main balance in the Account class, through constructors of SavingsAccount and FixedDepositAccount classes.
+
+Input format: Read the Savings Account balance in first line.
+              Read the Fixed deposit Account balance in second line.
+Output format: Calculate interest for the respective accounts and print the interest amount by restricting it to 2 decimal places.
+
+Note: Account Class is already given in the server. So students need not to rewrite it again::
+
+class Account {
+    protected double balance;
+
+    public Account(double balance) {
+        this.balance = balance;
+    }
+
+    public void calculateInterest() {
+        System.out.println("Interest calculation depends on Accounts."); 
+    }
+}
+
+Test Case Example:
+----------------------
+case=t1
+input=10000
+50000
+output=
+Interest for a savings account: Rs. 700.00
+Interest for a fixed deposit account: Rs. 4500.00
+
+case=t2
+input=560403
+1000000
+output=
+Interest for a savings account: Rs. 39228.21
+Interest for a fixed deposit account: Rs. 90000.00
+
+case=t3
+fail message="hidden case"
+input=0
+0
+output=
+Interest for a savings account: Rs. 0.00
+Interest for a fixed deposit account: Rs. 0.00
+
+case=t4
+fail message="hidden case"
+input=1233456
+9786546
+output=
+Interest for a savings account: Rs. 86341.92
+Interest for a fixed deposit account: Rs. 880789.14
+
+PROGRAM:
+-------------------------
+import java.util.*;
+
+class SavingsAccount extends Account {
+    public SavingsAccount(double balance) {
+            super(balance);
+    }
+
+    @Override
+    public void calculateInterest() {
+        double interest = balance * 0.07;
+        System.out.println("Interest for a savings account: Rs. " +  String.format("%.2f", interest));
+    }
+}
+
+class FixedDepositAccount extends Account {
+    public FixedDepositAccount(double balance) {
+        super(balance);
+    }
+
+    @Override
+    public void calculateInterest() {
+        double interest = balance * 0.09;
+        System.out.println("Interest for a fixed deposit account: Rs. " +  String.format("%.2f", interest));
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double sb = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+
+        //System.out.print("Enter the fixed deposit account balance: ");
+        double fd = scanner.nextDouble();
+
+        Account savingsAccount = new SavingsAccount(sb);
+        Account fixedDepositAccount = new FixedDepositAccount(fd);
+
+
+        savingsAccount.calculateInterest();
+        fixedDepositAccount.calculateInterest();
+
+        scanner.close();
+    }
+}
+
+7. Let's Football - Multiple Inhertitance using Interface:
+-------------------------------------------------------------
+Given the following two interfaces:
+
+interface PremierLeaguePlayer {
+    String getClub();
+    String getPositionInPremierLeague();
+}
+
+interface ChampionsLeaguePlayer {
+    void scoreGoal();
+    String getPositionInChampionsLeague();
+    boolean hasScoredInChampionsLeague();
+}
+
+you need to create a class called as SoccerPlayer.java and have members name, club,
+positioninpremierleague, positioninchampionsleague, boolean variable scoredinchmapionsleague
+and appropriate getter methods. and constructor to initialize the data members.
+
+The SoccerPlayer class needs to implement the above two interfaces and its given methods.
+
+Input Format: Read the player name, club, positioninpremierleague, positioninchampionsleague
+              and true or false value to indicate whether he scored in champions league or not.
+
+output format:
+print all the entered details of the player and 
+if the boolean value is true, then you print the following message:
+"The player scored in the champions league"
+or else
+"The player didn't score in the Champions League."
+
+
+
+Test case example:
+-----------------------------
+case=t1
+input=Bukayo Saka
+Arsenal
+Left winger
+Striker
+true
+output=
+Name: Bukayo Saka
+Premier League Club: Arsenal
+Position in Premier League: Left winger
+Position in Champions League: Striker
+The player scored in the Champions League.
+
+case=t2
+input=Gabriel Jesus
+Arsenal
+Striker
+Right Winger
+false
+output=
+Name: Gabriel Jesus
+Premier League Club: Arsenal
+Position in Premier League: Striker
+Position in Champions League: Right Winger
+The player didn't score in the Champions League.
+
+case=t3
+fail message="hidden test case"
+input=Lionel Messi
+Barcelona
+Striker
+Attacking Mid fielder
+true
+output=
+Name: Lionel Messi
+Premier League Club: Barcelona
+Position in Premier League: Striker
+Position in Champions League: Attacking Mid fielder
+The player scored in the Champions League.
+
+case=t3
+fail message="hidden test case"
+input=Ronaldo
+Real Madrid
+Striker
+winger
+false
+Name: Ronaldo
+output=
+Premier League Club: Real Madrid
+Position in Premier League: Striker
+Position in Champions League: winger
+The player didn't score in the Champions League.
+
+PROGRAM:
+--------------------------------
+import java.util.Scanner;
+
+// Interface for Premier League player details
+
+class SoccerPlayer implements PremierLeaguePlayer, ChampionsLeaguePlayer {
+    private String name;
+    private String club;
+    private String positionInPremierLeague;
+    private String positionInChampionsLeague;
+    private boolean scoredInChampionsLeague;
+
+    public SoccerPlayer(String name, String club, String positionInPremierLeague, String positionInChampionsLeague) {
+        this.name = name;
+        this.club = club;
+        this.positionInPremierLeague = positionInPremierLeague;
+        this.positionInChampionsLeague = positionInChampionsLeague;
+        this.scoredInChampionsLeague = false;
+    }
+
+    @Override
+    public String getClub() {
+        return club;
+    }
+
+    public String getPositionInPremierLeague() {
+        return positionInPremierLeague;
+    }
+
+    public void scoreGoal() {
+        scoredInChampionsLeague = true;
+    }
+
+    public String getPositionInChampionsLeague() {
+        return positionInChampionsLeague;
+    }
+
+    public boolean hasScoredInChampionsLeague() {
+        return scoredInChampionsLeague;
+    }
+    
+    public String getName() {
+        return name;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        //System.out.print("Enter player name: ");
+        String playerName = scanner.nextLine();
+
+        //System.out.print("Enter Premier League team name: ");
+        String premierLeagueClub = scanner.nextLine();
+
+       // System.out.print("Enter Premier League position: ");
+        String premierLeaguePosition = scanner.nextLine();
+
+        //System.out.print("Enter Champions League position: ");
+        String championsLeaguePosition = scanner.nextLine();
+
+        SoccerPlayer player = new SoccerPlayer(playerName, premierLeagueClub, premierLeaguePosition, championsLeaguePosition);
+
+        //System.out.print("Did the player score in Champions League? (true/false): ");
+        boolean scoredInChampionsLeague = scanner.nextBoolean();
+        if (scoredInChampionsLeague) {
+            player.scoreGoal();
+        }
+
+       
+        System.out.println("Name: " + player.getName());
+        System.out.println("Premier League Club: " + player.getClub());
+        System.out.println("Position in Premier League: " + player.getPositionInPremierLeague());
+        System.out.println("Position in Champions League: " + player.getPositionInChampionsLeague());
+
+        if (player.hasScoredInChampionsLeague()) {
+            System.out.println("The player scored in the Champions League.");
+        } else {
+            System.out.println("The player didn't score in the Champions League.");
+        }
+
+        scanner.close();
+    }
+}
+
+9. Music director and Composer - Abstract and Interface:
+-----------------------------------------------------------
+Given the following two files in the server: one is abstract class and another is interface class.
+---------------------------------------------------------------------------------------------------------
+MusicDirector.java:
+
+abstract class MusicDirector {
+    private String name;
+
+    public MusicDirector(String name) {
+        this.name = name;
+    }
+
+    public abstract void directsMusic();
+
+    public String getName() {
+        return name;
+    }
+}
+
+Composer.java:
+------------------
+interface Composer{
+    void composesMelody();
+}
+
+You need to create another class named as "Artist.java" which extends abstract class MusicDirector and defines the
+directsMusic() method and uses constructor and getter methods as well.
+Also the Artist.java needs to implement the interface method composesMelody() from Composer.java interface.
+
+Note: the Artist.java class should initialize the artist name through MusicDirector constructor. U can use
+super keyword to achieve the same.
+
+directsMusic() method should display following message:
+"Artistname Directs Film Music- Mixing, Mastering, recording of Songs"
+
+composesMelody() method should display following message:
+"Artistname composes independent song, writes lyrics and creates melody."
+
+Depending on the user input (Case-Insensitive), one of the above methods should be called.
+
+The user inputs should consider only the following list of artists and the information of whether they are both 
+Music directors and Composers or only Music Director or Only Composer. 
+---------------------------------------------
+AR RAHMAN:              Both Music Director and Composer.
+ANIRUDH RAVICHANDER:    Both Music Director and Composer.
+CHANDAN SHETTY:         Both Music Director and Composer.
+THAMAN S:               Both Music Director and Composer.
+
+ARIJIT SINGH:           Only composer
+JAANI:                  Only composer
+
+DSP:                    Only Music Director
+PRITAM:                 Only Music Director
+
+If any other artist name is entered apart from the above mentioned. Print "Invalid Artist Name" message.
+
+Observe the given test cases for more clarity:
+
+Test case examples:
+----------------------
+case=t1
+input=chandan shetty
+output=
+CHANDAN SHETTY Directs Film Music- Mixing, Mastering, recording of Songs
+Also, CHANDAN SHETTY composes independent song, writes lyrics and creates melody.
+
+
+
+case=t2
+input=CHANDAN SHETTY
+output=
+CHANDAN SHETTY Directs Film Music- Mixing, Mastering, recording of Songs
+Also, CHANDAN SHETTY composes independent song, writes lyrics and creates melody.
+
+
+case=t3
+fail message="hidden case"
+input=AR RAHMAN
+output=AR RAHMAN Directs Film Music- Mixing, Mastering, recording of Songs
+Also, AR RAHMAN composes independent song, writes lyrics and creates melody.
+
+
+case=t4
+fail message="hidden case"
+grade reduction=10%
+input=arijit singh
+output=
+ARIJIT SINGH composes independent song, writes lyrics and creates melody.
+
+case=t5
+fail message="hidden case"
+input=Arijit Singh
+output=
+ARIJIT SINGH composes independent song, writes lyrics and creates melody.
+
+case=t6
+fail message="hidden case"
+input=jaani
+output=
+JAANI composes independent song, writes lyrics and creates melody.
+
+case=t7
+fail message="hidden case"
+input=pritam
+output=
+PRITAM Directs Film Music- Mixing, Mastering, recording of Songs
+
+case=t8
+fail message="hidden case"
+input=thaman s
+OUTPUT=
+THAMAN S Directs Film Music- Mixing, Mastering, recording of Songs
+Also, THAMAN S composes independent song, writes lyrics and creates melody.
+
+case=t9
+fail message="hidden case"
+input=THAMAN S
+output=
+THAMAN S Directs Film Music- Mixing, Mastering, recording of Songs
+Also, THAMAN S composes independent song, writes lyrics and creates melody.
+
+case=t10
+fail message="hidden case"
+input=dsp
+output=
+DSP Directs Film Music- Mixing, Mastering, recording of Songs
+
+case=t11
+fail message="hidden case"
+input=arjun 
+output=
+invalid artist name
+
+case=t12
+fail message="hidden case"
+input=virat kohli
+output=
+invalid artist name
+
+PROGRAM:
+--------------------------------------
+import java.util.Scanner;
+
+class Artist extends MusicDirector implements Composer {
+
+    public Artist(String name) {
+        super(name);
+    }
+
+    public void directsMusic() {
+        System.out.println(getName().toUpperCase() + " Directs Film Music- Mixing, Mastering, recording of Songs");
+    }
+
+    public void composesMelody() {
+        System.out.println(getName().toUpperCase() + " composes independent song, writes lyrics and creates melody.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        //System.out.print("Enter the artist name: ");
+        String artistName = scanner.nextLine().toLowerCase();
+
+        Artist a = new Artist(artistName);
+
+        switch (artistName) {
+            case "ar rahman":
+            case "anirudh ravichander": 
+            case "chandan shetty":   
+            case "thaman s":    
+                a.directsMusic();
+                System.out.print("Also, ");
+                a.composesMelody();
+                break;
+            case "arijit singh":
+            case "jaani":    
+                a.composesMelody();
+                break;
+            case "dsp":
+            case "pritam":    
+                a.directsMusic();
+                break;
+            default:
+                System.out.println("Invalid artist name");
+        }
+    }
+}
+
+10. BHIM UPI and Payments Apps- Final Keyword and Method:
+----------------------------------------------------------------
+Given the following BHIMUPI.java class:
+---------------------------------------------
+class BHIMAPI {
+    protected static final String GPAY_PIN = "1717";
+    protected static final String PHONEPE_PIN = "2727";
+    protected static final String PAYTM_PIN = "3737";
+
+    private static boolean verifyPin(String userPin, String actualPin) {
+        return userPin.equals(actualPin);
+    }
+
+    final boolean BhimAccess(String userPin, String actualPin) {
+        if (verifyPin(userPin, actualPin))
+        {
+            System.out.println("BHIM UPI Access Granted.");
+            return true; 
+        }
+        else 
+        {
+            System.out.println("Transaction is Aborted.");
+            return false;
+        }
+    }
+}
+
+You need to create a menu drive program to perform valid payment transactions.
+Create 3 separate classes for GPay, Phonepe and Paytm which extends the BHIMAPI class.
+and access the individual UPI_PIN provided in that class.
+
+There is a final method named as BhimAccess() which will access the PIN entered by the user
+and actual PIn for the corresponding Payment app. It will return true and grant access to UPI
+only if the PINs Matches else it will return Transaction is Aborted.
+
+In each classes of GPay, Phonepe and Paytm, they should hav their individual functions
+which calls the BhimAcess() method with 2 parameters, entered Pin and actual Pin.
+only if the BhimAccess() returns true, you need to print the message:
+
+Gpay transaction is successul.
+Phonepe transaction is successful.
+Paytm transaction is successful.
+
+otherwise Print "Invalid Gpay Pin"
+                "Invalid Phonepe Pin"
+                "Invalid Paytm Pin"
+
+input format: 
+----------------
+                System.out.println("1. GPay");
+                System.out.println("2. PhonePe");
+                System.out.println("3. Paytm");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice: ");
+
+enter the choice of payment app and on same line enter the Upi Pin(in String format).
+Note: user has to give the existing UPI_PIN details only in the given class BHIMAPI.java for valid transaction.
+
+for the Output format and other possible scenarios, observe the 
+given test cases below.
+
+
+Test Case examples:
+----------------------
+case=t1
+input=
+1 1717
+4
+output=
+BHIM UPI Access Granted.
+GPay transaction is successful.
+
+case=t2
+input=
+1 2727
+4
+output=
+Transaction is Aborted.
+Invalid GPay Pin.
+
+case=t3
+fail message="Hidden test case"
+input=
+2 2727 
+4
+output=
+BHIM UPI Access Granted.
+PhonePe transaction is successful.
+
+case=t4
+fail message="Hidden test case"
+input=5
+4
+output=
+Invalid Payment Option.
+
+case=t5
+input=3 3737
+4
+output=
+BHIM UPI Access Granted.
+Paytm transaction is successful.
+
+case=t6
+fail message="Hidden test case"
+input=3 
+3737
+4
+output=
+BHIM UPI Access Granted.
+Paytm transaction is successful.
+
+case=t7
+input=3 
+3737
+1
+1717
+2
+2727
+4
+output=
+BHIM UPI Access Granted.
+Paytm transaction is successful.
+BHIM UPI Access Granted.
+GPay transaction is successful.
+BHIM UPI Access Granted.
+Phonepe transaction is successful.
+
+case=t8
+fail message="Hidden test case"
+input=
+2 3737
+4
+output=
+Transaction is Aborted.
+Invalid Phonepe Pin.
+
+case=t9
+fail message="Hidden test case"
+input=
+3 4848
+4
+output=
+Transaction is Aborted.
+Invalid Paytm Pin.
+
+case=t10
+fail message="Hidden test case"
+input=10
+4
+output=
+Invalid Payment Option.
+
+case=t11
+fail message="Hidden test case"
+input=
+3 1234
+4
+output=
+Transaction is Aborted.
+Invalid Paytm Pin.
+
+PROGRAM:
+--------------------------------
+import java.util.*;
+
+class GPay extends BHIMAPI {
+
+    void performGPayTransaction(String pin) {
+        if (BhimAccess(pin, GPAY_PIN)) {
+            System.out.println("GPay transaction is successful.");
+        }
+        else
+        System.out.println("Invalid GPay Pin.");
+    }
+}
+
+class PhonePe extends BHIMAPI {
+
+    void performPhonePeTransaction(String pin) {
+        if (BhimAccess(pin, PHONEPE_PIN)) {
+            System.out.println("PhonePe transaction is successful.");
+        }
+        else
+        System.out.println("Invalid PhonePe Pin.");
+    }
+}
+
+class Paytm extends BHIMAPI {
+    void performPaytmTransaction(String pin) {
+        if (BhimAccess(pin, PAYTM_PIN)) {
+            System.out.println("Paytm transaction is successful.");
+        }
+        else
+        System.out.println("Invalid Paytm Pin.");
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+            int choice;
+            String pin;
+
+            while(true)
+            {
+                /*System.out.println("Menu:");
+                System.out.println("1. GPay");
+                System.out.println("2. PhonePe");
+                System.out.println("3. Paytm");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice: ");*/
+                choice = scanner.nextInt();
+              
+                switch (choice) {
+                    case 1:
+                          pin = scanner.next();
+                        GPay gPay = new GPay();
+                        gPay.performGPayTransaction(pin);
+                        break;
+                    case 2:
+                          pin = scanner.next();
+                        PhonePe phonePe = new PhonePe();
+                        phonePe.performPhonePeTransaction(pin);
+                        break;
+                    case 3:
+                          pin = scanner.next();
+                        Paytm paytm = new Paytm();
+                        paytm.performPaytmTransaction(pin);
+                        break;
+                    case 4:
+                        scanner.close();
+                       System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Invalid Payment Option.");
+                }
+
+            }
+    }
+}
+
