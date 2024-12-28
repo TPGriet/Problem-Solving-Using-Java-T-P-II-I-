@@ -701,3 +701,254 @@ public class CLL<E> {
     }
 }
 
+1. Count Number of Edges in an Undirected Graph:
+---------------------------------------------------------
+Write a java program to count the number of edges in an undirected graph.
+
+Note: Since the graph is undirected, if there is edge from 0 to 1, its obvious that there is an edge also from 1 to 0. 
+      Hence u need to find all the edges connected to a given vertex and divide by 2 to get the actual edge count.
+      
+Input format: enter the number of vertices on first line.
+             In next line, enter the edge details from src to destination (withing the given vertices)
+             as long as user presses -1. once -1 pressed stop entering the edge details.
+
+output format: Print the number of edges as a single integer value.
+
+Test Case examples:
+----------------------
+case=t1
+input=3
+0 1
+-1
+output=
+Number of edges: 1
+
+case=t2
+input=3
+0 1
+1 2
+-1
+output=Number of edges: 2
+
+
+case=t3
+input=4
+0 1
+0 2
+1 3
+-1
+output=
+Number of edges: 3
+
+case=t4
+input=
+5
+0 1
+0 2
+3 2
+3 4
+1 4
+-1
+output=
+Number of edges: 5
+
+case=t5
+fail message="hidden test case"
+input=1
+-1
+output=
+Number of edges: 0
+
+case=t6
+input=1
+0 0
+-1
+output=Number of Edges: 1
+
+PROGRAM:
+-----------------------------------
+
+
+2. Mother Vertex in Directed Graph:
+-----------------------------------------------
+ Write a Java Program to find Mother Vertex in a given Directed Graph.
+    A vertex is called as Mother vertex in a graph G = (V, E) if a vertex v exists
+    such that all other vertices in G can be reached by a path from v.
+ 
+Hint: Vertices starts from the digit '0' , find all other vertices which are connected to 0,
+      make them as visited. Maintain a visited array. Start looking for remaining unvisited vertices,
+      continuing from 1 and so on. The first vertex from which all the other vertices can be visited,
+      becomes the mother vertex.
+ 
+Input format: enter the number of vertices and number of edges on same line.
+             In next line, enter the edge details from src to destination.
+
+output format: Print Mother vertex number if present else print -1.
+
+Test Case example:
+----------------------
+case=t1
+input=5 4
+0 1
+3 0
+3 2
+2 4
+output=
+Mother vertex is: 3
+
+case=t2
+input= 4 2
+0 1
+1 2
+output=
+Mother Vertex is: -1
+
+case=t3
+input= 4 3
+0 1
+1 2
+2 3
+output=
+Mother Vertex is: 0
+
+case=t4
+input=3 2
+1 0
+1 2
+output=
+Mother vertex is: 1
+
+case=t5
+input=3 2
+2 0
+0 2
+output=
+Mother vertex is -1
+
+PROGRAM:
+-------------------------------
+
+
+3. Topological Sorting: DAG:
+---------------------------------------
+Write a Java Program to Compute Toplogical Sorting order of a given DAG: Directed Acyclic Graph
+
+Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u-v,
+vertex u comes before v in the ordering.
+
+Input Format: Enter the number of Vertices in first line
+              Enter the number of edges in second line.
+              Enter the edges in src to dest format on each separate line.
+              
+              
+Test Case example:
+----------------------
+case=t1
+input= 6
+6
+0 2
+1 2
+0 3
+3 4
+4 5
+2 5
+output=
+1 0 3 4 2 5 
+
+case=t2
+input=5
+6
+0 1
+0 2
+1 2
+1 3
+2 3
+2 4
+output=
+0 1 2 4 3 
+
+PROGRAM:
+-----------------------------------
+
+
+4. Binary Tree Level Order Traversal:
+-------------------------------------------------
+Write a Java Program to Compute Toplogical Sorting order of a given DAG: Directed Acyclic Graph
+
+Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u-v,
+vertex u comes before v in the ordering.
+
+Input Format: Enter the number of Vertices in first line
+              Enter the number of edges in second line.
+              Enter the edges in src to dest format on each separate line.
+              
+              
+Test Case example:
+----------------------
+case=t1
+input= 6
+6
+0 2
+1 2
+0 3
+3 4
+4 5
+2 5
+output=
+1 0 3 4 2 5 
+
+case=t2
+input=5
+6
+0 1
+0 2
+1 2
+1 3
+2 3
+2 4
+output=
+0 1 2 4 3 
+
+PROGRAM:
+---------------------------------
+
+5. MST using Prim's Algorithm:
+-------------------------------------------
+Write a Java Program to Compute Toplogical Sorting order of a given DAG: Directed Acyclic Graph
+
+Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u-v,
+vertex u comes before v in the ordering.
+
+Input Format: Enter the number of Vertices in first line
+              Enter the number of edges in second line.
+              Enter the edges in src to dest format on each separate line.
+              
+              
+Test Case example:
+----------------------
+case=t1
+input= 6
+6
+0 2
+1 2
+0 3
+3 4
+4 5
+2 5
+output=
+1 0 3 4 2 5 
+
+case=t2
+input=5
+6
+0 1
+0 2
+1 2
+1 3
+2 3
+2 4
+output=
+0 1 2 4 3 
+
+PROGRAM:
+------------------------------------
